@@ -8,11 +8,15 @@ public interface EmployeeDaoIF {
 
     // No create
 
-    /** get all employees */
-    Set<Employee> getAllEmployees(int empId);
+    /**
+     * get all employees
+     */
+    Set<Employee> getAllEmployees();
 
-    /** get employee by id */
-    Employee getEmployeeById(int empId);
+    /**
+     * get employee by id
+     */
+    Employee getEmployeeById(int empId, String username, String password);
 
     /** update the employee */
     Employee updateEmployee(int empId);

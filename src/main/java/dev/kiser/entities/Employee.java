@@ -3,27 +3,48 @@ package dev.kiser.entities;
 /** Employee Java */
 public class Employee {
 
-    /** unique employee id */
+    /**
+     * unique employee id
+     */
     private int empId;
-    /** first name */
+    /**
+     * first name
+     */
     private String fName;
-    /** last name */
+    /**
+     * last name
+     */
     private String lName;
-    /** unique email */
+    /**
+     * unique email
+     */
     private String email;
-    /** true if manager and false otherwise */
+    /**
+     * true if manager and false otherwise
+     */
     private boolean manager;
+    /**
+     * the employee's password
+     */
+    private String password;
+    /**
+     * the employee's username
+     */
+    private String username;
 
     // default constructor
-    public Employee(){}
+    public Employee() {
+    }
 
     // constructor
-    public Employee(int empId, String fName, String lName, String email, boolean manager) {
+    public Employee(int empId, String fName, String lName, String email, boolean manager, String password, String username) {
         this.empId = empId;
         this.fName = fName;
         this.lName = lName;
         this.email = email;
         this.manager = manager;
+        this.password = password;
+        this.username = username;
     }
 
     public int getEmpId() {
@@ -64,5 +85,21 @@ public class Employee {
 
     public void setManager(boolean manager) {
         this.manager = manager;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

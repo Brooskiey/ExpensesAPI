@@ -8,11 +8,9 @@ public class EmployeeDaoPostgres implements EmployeeDaoIF{
 
     /**
      * get all employees
-     *
-     * @param empId
      */
     @Override
-    public Set<Employee> getAllEmployees(int empId) {
+    public Set<Employee> getAllEmployees() {
         return null;
     }
 
@@ -22,7 +20,7 @@ public class EmployeeDaoPostgres implements EmployeeDaoIF{
      * @param empId
      */
     @Override
-    public Employee getEmployeeById(int empId) {
+    public Employee getEmployeeById(int empId, String username, String password) {
         return null;
     }
 
