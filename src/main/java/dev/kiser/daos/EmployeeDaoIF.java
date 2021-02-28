@@ -18,8 +18,10 @@ public interface EmployeeDaoIF {
      */
     Employee getEmployeeById(int empId, String username, String password);
 
-    /** update the employee */
-    Employee updateEmployee(int empId);
+    /**
+     * update the employee
+     */
+    Employee updateEmployee(Employee employee);
 
     /** delete the employee */
     boolean deleteEmployee(int empId);
