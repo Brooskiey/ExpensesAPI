@@ -19,10 +19,7 @@ public class Employee {
      * unique email
      */
     private String email;
-    /**
-     * true if manager and false otherwise
-     */
-    private boolean manager;
+
     /**
      * the employee's password
      */
@@ -37,12 +34,12 @@ public class Employee {
     }
 
     // constructor
-    public Employee(int empId, String fName, String lName, String email, boolean manager, String password, String username) {
+    public Employee(int empId, String fName, String lName, String email, String password,
+                    String username) {
         this.empId = empId;
         this.fName = fName;
         this.lName = lName;
         this.email = email;
-        this.manager = manager;
         this.password = password;
         this.username = username;
     }
@@ -77,14 +74,6 @@ public class Employee {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public boolean isManager() {
-        return manager;
-    }
-
-    public void setManager(boolean manager) {
-        this.manager = manager;
     }
 
     public String getPassword() {

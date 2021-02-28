@@ -1,7 +1,6 @@
 package dev.kiser.entities;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 /** Expense Java Bean */
 public class Expense {
@@ -27,8 +26,8 @@ public class Expense {
     public Expense(){}
 
     // constructor
-    public Expense(String status, int expenseId, String managerReason, String empReason, int empId, float amount,
-                   Date submissionDate, Date statusDate) {
+    public Expense(String status, int expenseId, String managerReason, String empReason, int empId,
+                   float amount, Date submissionDate, Date statusDate) {
         this.status = status;
         this.expenseId = expenseId;
         this.managerReason = managerReason;

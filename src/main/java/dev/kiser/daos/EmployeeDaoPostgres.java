@@ -17,7 +17,9 @@ public class EmployeeDaoPostgres implements EmployeeDaoIF{
     /**
      * get employee by id
      *
-     * @param empId
+     * @param empId:    employee id
+     * @param username: employee username
+     * @param password: employee password
      */
     @Override
     public Employee getEmployeeById(int empId, String username, String password) {
@@ -27,7 +29,7 @@ public class EmployeeDaoPostgres implements EmployeeDaoIF{
     /**
      * update the employee
      *
-     * @param empId
+     * @param empId: employee id
      */
     @Override
     public Employee updateEmployee(int empId) {
@@ -37,7 +39,7 @@ public class EmployeeDaoPostgres implements EmployeeDaoIF{
     /**
      * delete the employee
      *
-     * @param empId
+     * @param empId: employee id
      */
     @Override
     public boolean deleteEmployee(int empId) {
