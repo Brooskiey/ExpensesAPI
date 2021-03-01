@@ -33,6 +33,10 @@ public class Employee {
     public Employee() {
     }
 
+    public Employee(int empId) {
+        this.empId = empId;
+    }
+
     // constructor
     public Employee(int empId, String fName, String lName, String email, String password,
                     String username) {

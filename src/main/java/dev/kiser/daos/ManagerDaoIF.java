@@ -7,5 +7,5 @@ public interface ManagerDaoIF {
     /**
      * get the manager based on the employee id
      */
-    Manager getManagerByID(int emp_id);
+    Manager getManagerByID(int empId);
 }
