@@ -11,23 +11,38 @@ public class Expense {
     private int expenseId;
     /** optional reason from manager for expense denied or approval*/
     private String managerReason;
-    /** optional reason for expense from employee*/
+    /**
+     * optional reason for expense from employee
+     */
     private String empReason;
-    /** link to the employee */
+    /**
+     * link to the employee
+     */
     private int empId;
-    /** the amount to be reimbursed */
+    /**
+     * the amount to be reimbursed
+     */
     private float amount;
-    /** date in unix time of submission */
+    /**
+     * date in unix time of submission
+     */
     private Date submissionDate;
-    /** date in unix time of status update */
+    /**
+     * date in unix time of status update
+     */
     private Date statusDate;
+    /**
+     * approving manager
+     */
+    private int managerId;
 
     // default constructor
-    public Expense(){}
+    public Expense() {
+    }
 
     // constructor
     public Expense(String status, int expenseId, String managerReason, String empReason, int empId,
-                   float amount, Date submissionDate, Date statusDate) {
+                   float amount, Date submissionDate, Date statusDate, int managerId) {
         this.status = status;
         this.expenseId = expenseId;
         this.managerReason = managerReason;
@@ -36,6 +51,7 @@ public class Expense {
         this.amount = amount;
         this.submissionDate = submissionDate;
         this.statusDate = statusDate;
+        this.managerId = managerId;
     }
 
     public String getStatus() {
@@ -102,5 +118,13 @@ public class Expense {
 
     public void setStatusDate(Date statusDate) {
         this.statusDate = statusDate;
+    }
+
+    public int getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(int managerId) {
+        this.managerId = managerId;
     }
 }

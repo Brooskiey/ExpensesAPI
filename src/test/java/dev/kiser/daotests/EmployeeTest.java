@@ -3,16 +3,17 @@ package dev.kiser.daotests;
 import dev.kiser.daos.EmployeeDaoIF;
 import dev.kiser.daos.EmployeeDaoPostgres;
 import dev.kiser.entities.Employee;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.Set;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EmployeeTest {
 
     EmployeeDaoIF edao = new EmployeeDaoPostgres();
 
     @Test
+    @Order(1)
     void get_all_employees() {
         Set<Employee> employees = edao.getAllEmployees();
 
@@ -24,6 +25,7 @@ public class EmployeeTest {
     }
 
     @Test
+    @Order(2)
     void get_employee_by_id() {
         int empId = 2;
         String username = "Unwonted";
@@ -47,6 +49,7 @@ public class EmployeeTest {
     }
 
     @Test
+    @Order(3)
     void update_employee() {
         Employee employee = new Employee(1, "Brooke", "Kiser", "BLKiser@yahoo.com",
                 "Brooke", "BaKiser");
@@ -60,6 +63,7 @@ public class EmployeeTest {
     }
 
 //    @Test
+//    @Order(4)
 //    void delete_employee(){
 //        int empId = 1;
 //

@@ -25,10 +25,10 @@ public interface ExpenseDaoIF {
     /** get all expenses for an employee */
     Set<Expense> getExpenseByEmployee(int empId);
 
-    /** update an expense
-     * MANAGER ONLY: update status
+    /**
+     * update an expense MANAGER ONLY: update status
      */
-    Expense updateExpense(int empId, int expenseId);
+    Expense updateExpense(int manId, Expense expense);
 
     /** delete an expense */
     boolean deleteExpense(int empId, int expenseId);
