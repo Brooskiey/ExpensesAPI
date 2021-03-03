@@ -16,7 +16,7 @@ public class ManagerDaoPostgres implements ManagerDaoIF {
     /**
      * get the manager based on the employee id
      *
-     * @param empId: employee id
+     * @param empId employee id
      */
     @Override
     public Manager getManagerByID(int empId) {

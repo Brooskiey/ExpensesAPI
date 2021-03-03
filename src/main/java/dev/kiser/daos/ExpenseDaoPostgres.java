@@ -16,8 +16,8 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
     /**
      * create an expense
      *
-     * @param empId:   employee id
-     * @param expense: expense id
+     * @param empId   employee id
+     * @param expense expense id
      */
     @Override
     public Expense createExpense(int empId, Expense expense) {
@@ -96,8 +96,8 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
     /**
      * get expense by id
      *
-     * @param empId: employee id
-     * @param expenseId: expense id
+     * @param empId     employee id
+     * @param expenseId expense id
      */
     @Override
     public Expense getExpenseById(int empId, int expenseId) {
@@ -137,10 +137,9 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
 
     /**
      * get expenses by status
-     * -1: manager getting all the expenses of a status
      *
-     * @param empId: employee id
-     * @param status: "denied", "approved"
+     * @param empId  employee id
+     * @param status "denied", "approved"
      */
     @Override
     public Set<Expense> getExpensesByStatus(int empId, String status) {
@@ -184,9 +183,54 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
     }
 
     /**
+     * get all expenses by status
+     *
+     * @param status status of the expenses
+     */
+    @Override
+    public Set<Expense> getExpensesByStatus(String status) {
+        try (Connection conn = ConnectionUtil.createConnection()) {
+
+            String sql = "select * from expense where status = ?";
+
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, status);
+            ResultSet rs = ps.executeQuery();
+
+            Set<Expense> expenses = new HashSet<>();
+
+            while (rs.next()) {
+
+                Expense expense = new Expense();
+                expense.setEmpId(rs.getInt("employee_id"));
+                expense.setStatus(rs.getString("status"));
+                expense.setManagerReason(rs.getString("manager_reason"));
+                expense.setExpenseId(rs.getInt("expense_id"));
+                expense.setAmount(rs.getFloat("amount"));
+                expense.setEmpReason(rs.getString("emp_reason"));
+                expense.setStatusDate(rs.getDate("submission_date"));
+                expense.setManagerId(rs.getInt("manager_id"));
+                expense.setStatusDate(rs.getDate("status_date"));
+
+                expenses.add(expense);
+            }
+
+            logger.info("Get all expenses with status " + status);
+
+            return expenses;
+
+        } catch (SQLException sqlException) {
+            logger.error("Error in getting all expenses for employee with status " + status +
+                    "\n\t\t\t\t\t" + sqlException);
+            return null;
+        }
+    }
+
+    /**
      * get all expenses for an employee
      *
-     * @param empId: employee id
+     * @param empId employee id
      */
     @Override
     public Set<Expense> getExpenseByEmployee(int empId) {
@@ -228,10 +272,10 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
     }
 
     /**
-     * update an expense (MANAGER ONLY: update status)
+     * update an expense (MANAGER ONLY update status)
      *
-     * @param manId:   manager id
-     * @param expense: updated expense
+     * @param manId   manager id
+     * @param expense updated expense
      */
     @Override
     public Expense updateExpense(int manId, Expense expense) {
@@ -265,8 +309,8 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
     /**
      * delete an expense
      *
-     * @param empId: employee id
-     * @param expenseId: expense id
+     * @param empId employee id
+     * @param expenseId expense id
      */
     @Override
     public boolean deleteExpense(int empId, int expenseId) {

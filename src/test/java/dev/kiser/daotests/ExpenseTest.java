@@ -68,6 +68,17 @@ public class ExpenseTest {
     }
 
     @Test
+    void get_all_expense_by_status() {
+        String status = "Pending";
+        Set<Expense> expense = xdao.getExpensesByStatus(status);
+
+        System.out.println("\nget_all_expenses_by_status: assertNotEquals" +
+                "\n\tUnexpected Size: 0" +
+                "\n\tActual Size: " + expense.size());
+        Assertions.assertNotEquals(0, expense.size());
+    }
+
+    @Test
     void get_expense_by_employee() {
         int empId = 3;
         Set<Expense> expense = xdao.getExpenseByEmployee(empId);
@@ -80,8 +91,8 @@ public class ExpenseTest {
 
     @Test
     void update_expense() {
-        Expense expense = new Expense("Pending", 2, "Go with Potato. Go see your sister and Auntie BB.",
-                "I need a new shotgun to go waterfowl hunting in ND",
+        Expense expense = new Expense("Approved", 15, "Go with Potato. Go see your sister and Auntie BB.",
+                "I need a plane ticket home",
                 3, 1500, null, null, 0);
         int manId = 2;
 
