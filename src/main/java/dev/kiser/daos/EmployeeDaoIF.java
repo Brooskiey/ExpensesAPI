@@ -14,16 +14,23 @@ public interface EmployeeDaoIF {
     Set<Employee> getAllEmployees();
 
     /**
+     * get employee by username and password
+     */
+    Employee getEmployeeByName(String username, String password);
+
+    /**
      * get employee by id
      */
-    Employee getEmployeeById(int empId, String username, String password);
+    Employee getEmployeeById(int empId);
 
     /**
      * update the employee
      */
     Employee updateEmployee(Employee employee);
 
-    /** delete the employee */
+    /**
+     * delete the employee
+     */
     boolean deleteEmployee(int empId);
 
 }
