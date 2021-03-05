@@ -14,7 +14,7 @@ public interface ExpenseServiceIF {
     /**
      * get all the expenses for every employee
      */
-    Set<Expense> getAllExpenses(String role);
+    Set<Expense> getAllExpenses();
 
     /**
      * get the expenses for an employee
@@ -34,7 +34,7 @@ public interface ExpenseServiceIF {
     /**
      * update the expense (MANAGER ONLY)
      */
-    Expense updateExpense(int manId, Expense expense, String role);
+    Expense updateExpense(int manId, Expense expense);
 
     /**
      * delete the specific expense
