@@ -294,13 +294,13 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
             ps.execute();
 
             expense.setManagerId(manId);
-            logger.info("Get expense with ID " + expense.getExpenseId() + " for employee ID " + expense.getEmpId() +
+            logger.info("Update expense with ID " + expense.getExpenseId() + " for employee ID " + expense.getEmpId() +
                     " and updated by manager ID " + manId);
 
             return expense;
 
         } catch (SQLException sqlException) {
-            logger.error("Error in getting expense with id " + expense.getExpenseId() +
+            logger.error("Error in updating expense with id " + expense.getExpenseId() +
                     " for employee " + expense.getEmpId() + "\n\t\t\t\t\t" + sqlException);
             return null;
         }
@@ -320,10 +320,10 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
             ps.setInt(1, expenseId);
             ps.setInt(2, empId);
             ps.execute();
-            logger.info("Get expense with ID " + expenseId + " for employee ID " + empId);
+            logger.info("Delete expense with ID " + expenseId + " for employee ID " + empId);
             return true;
         } catch (SQLException sqlException) {
-            logger.error("Error in getting expense with id " + expenseId +
+            logger.error("Error in deleting expense with id " + expenseId +
                     " for employee " + empId + "\n\t\t\t\t\t" + sqlException);
             return false;
         }

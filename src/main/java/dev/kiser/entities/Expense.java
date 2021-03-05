@@ -127,4 +127,19 @@ public class Expense {
     public void setManagerId(int managerId) {
         this.managerId = managerId;
     }
+
+    @Override
+    public String toString() {
+        return "Expense{" +
+                "status='" + status + '\'' +
+                ", expenseId=" + expenseId +
+                ", managerReason='" + managerReason + '\'' +
+                ", empReason='" + empReason + '\'' +
+                ", empId=" + empId +
+                ", amount=" + amount +
+                ", submissionDate=" + submissionDate +
+                ", statusDate=" + statusDate +
+                ", managerId=" + managerId +
+                '}';
+    }
 }

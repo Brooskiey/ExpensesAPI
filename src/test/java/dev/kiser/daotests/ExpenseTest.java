@@ -106,10 +106,10 @@ public class ExpenseTest {
 
     @Test
     void delete_expense() {
-        int expense_id = 13;
-        int employee_id = 3;
+        int expenseId = 13;
+        int employeeId = 3;
 
-        boolean result = xdao.deleteExpense(employee_id, expense_id);
+        boolean result = xdao.deleteExpense(employeeId, expenseId);
 
         System.out.println("\ndelete_expense: assertTrue" +
                 "\n\tExpected: true" +

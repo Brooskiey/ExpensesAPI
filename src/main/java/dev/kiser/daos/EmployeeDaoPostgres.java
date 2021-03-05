@@ -54,23 +54,59 @@ public class EmployeeDaoPostgres implements EmployeeDaoIF {
     }
 
     /**
-     * get employee by id
+     * get employee by username and password
      *
-     * @param empId    employee id
      * @param username employee username
      * @param password employee password
      */
     @Override
-    public Employee getEmployeeById(int empId, String username, String password) {
+    public Employee getEmployeeByName(String username, String password) {
         try (Connection conn = ConnectionUtil.createConnection()) {
 
-            String sql = "select * from employee where employee_id = ? and username = ? and em_password = ?";
+            String sql = "select * from employee where username = ? and em_password = ?";
+
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+
+            rs.next();
+
+            Employee employee = new Employee();
+            employee.setEmpId(rs.getInt("employee_id"));
+            employee.setfName(rs.getString("first_name"));
+            employee.setlName(rs.getString("last_name"));
+            employee.setEmail(rs.getString("email"));
+            employee.setUsername(rs.getString("username"));
+            employee.setPassword(rs.getString("em_password"));
+
+            logger.info("Get employee by username");
+
+            return employee;
+
+        } catch (SQLException sqlException) {
+//            logger.debug(empId + " : " + username + " : " + password);
+            logger.error("Error in getting employee by username \n\t\t\t\t\t" + sqlException);
+            return null;
+        }
+    }
+
+    /**
+     * get employee by id
+     *
+     * @param empId employee id
+     */
+    @Override
+    public Employee getEmployeeById(int empId) {
+        try (Connection conn = ConnectionUtil.createConnection()) {
+
+            String sql = "select * from employee where employee_id = ?";
 
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, empId);
-            ps.setString(2, username);
-            ps.setString(3, password);
+
             ResultSet rs = ps.executeQuery();
 
             rs.next();
@@ -89,7 +125,7 @@ public class EmployeeDaoPostgres implements EmployeeDaoIF {
 
         } catch (SQLException sqlException) {
 //            logger.debug(empId + " : " + username + " : " + password);
-            logger.error("Error in getting employee with id " + empId + "\n\t\t\t\t\t" + sqlException);
+            logger.error("Error in getting employee with ID " + empId + "\n\t\t\t\t\t" + sqlException);
             return null;
         }
     }

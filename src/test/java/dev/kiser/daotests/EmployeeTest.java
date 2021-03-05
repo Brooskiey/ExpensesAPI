@@ -31,7 +31,7 @@ public class EmployeeTest {
         String username = "Unwonted";
         String password = "Brian";
 
-        Employee employee = edao.getEmployeeById(empId, username, password);
+        Employee employee = edao.getEmployeeById(empId);
 
         System.out.println("\nget_employee_by_id: assertEquals" +
                 "\nEmployee ID" +
