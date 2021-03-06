@@ -1,6 +1,8 @@
 package dev.kiser.services;
 
+import dev.kiser.entities.Employee;
 import dev.kiser.entities.Expense;
+import dev.kiser.entities.Manager;
 
 import java.util.Set;
 
@@ -40,4 +42,14 @@ public interface ExpenseServiceIF {
      * delete the specific expense
      */
     boolean deleteExpense(int empId, int expenseId);
+
+    /**
+     * gets the employee by username and password
+     */
+    Employee getEmpById(String username, String password);
+
+    /**
+     * gets the manager by the employee id
+     */
+    Manager getManById(int empId);
 }

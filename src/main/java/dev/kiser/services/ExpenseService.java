@@ -3,7 +3,9 @@ package dev.kiser.services;
 import dev.kiser.daos.EmployeeDaoIF;
 import dev.kiser.daos.ExpenseDaoIF;
 import dev.kiser.daos.ManagerDaoIF;
+import dev.kiser.entities.Employee;
 import dev.kiser.entities.Expense;
+import dev.kiser.entities.Manager;
 import org.apache.log4j.Logger;
 
 import java.util.Set;
@@ -32,11 +34,9 @@ public class ExpenseService implements ExpenseServiceIF {
     @Override
     public Expense registerExpense(int empId, Expense expense) {
         if (expense.getAmount() == 0 || expense.getEmpReason().equals("") || expense.getEmpReason() == null) {
-            logger.debug("Amount was 0 or emp reason was '' or null in registerExpense");
             return null;
         }
         if (edao.getEmployeeById(empId) == null) {
-            logger.debug("Employee by id in registerExpense is null");
             return null;
         }
         expense.setStatus("pending");
@@ -110,7 +110,7 @@ public class ExpenseService implements ExpenseServiceIF {
         if (!(expense.getStatus().toLowerCase()).equals("approved") && !(expense.getStatus().toLowerCase()).equals("denied")) {
             return null;
         }
-        if (expense.getEmpId() == manId) {
+        if (expense.getEmpId() == mdao.getManagerByID(expense.getEmpId()).getManId()) {
             return null;
         }
 
@@ -134,5 +134,29 @@ public class ExpenseService implements ExpenseServiceIF {
             return false;
         }
         return xdao.deleteExpense(empId, expenseId);
+    }
+
+    /**
+     * gets the employee by username and password
+     *
+     * @param username username
+     * @param password password
+     */
+    @Override
+    public Employee getEmpById(String username, String password) {
+        return edao.getEmployeeByName(username, password);
+    }
+
+    /**
+     * gets the manager by the employee id
+     *
+     * @param empId employee id
+     */
+    @Override
+    public Manager getManById(int empId) {
+        if (edao.getEmployeeById(empId) == null) {
+            return null;
+        }
+        return mdao.getManagerByID(empId);
     }
 }
