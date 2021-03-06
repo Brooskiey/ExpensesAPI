@@ -310,7 +310,7 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
     /**
      * delete an expense
      *
-     * @param empId employee id
+     * @param empId     employee id
      * @param expenseId expense id
      */
     @Override

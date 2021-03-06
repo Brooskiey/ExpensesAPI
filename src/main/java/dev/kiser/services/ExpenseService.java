@@ -6,19 +6,17 @@ import dev.kiser.daos.ManagerDaoIF;
 import dev.kiser.entities.Employee;
 import dev.kiser.entities.Expense;
 import dev.kiser.entities.Manager;
-import org.apache.log4j.Logger;
 
 import java.util.Set;
 
 public class ExpenseService implements ExpenseServiceIF {
-
-    Logger logger = Logger.getLogger(ExpenseService.class);
 
     private final ExpenseDaoIF xdao;
     private final EmployeeDaoIF edao;
     private final ManagerDaoIF mdao;
 
 
+    // constructor
     public ExpenseService(ExpenseDaoIF xdao, EmployeeDaoIF edao, ManagerDaoIF mdao) {
         this.xdao = xdao;
         this.edao = edao;
@@ -33,12 +31,16 @@ public class ExpenseService implements ExpenseServiceIF {
      */
     @Override
     public Expense registerExpense(int empId, Expense expense) {
+
+        // make sure the values are appropriate
         if (expense.getAmount() == 0 || expense.getEmpReason().equals("") || expense.getEmpReason() == null) {
             return null;
         }
+        //make sure the employee exists
         if (edao.getEmployeeById(empId) == null) {
             return null;
         }
+        // all new expenses should have a 'pending' status
         expense.setStatus("pending");
         return xdao.createExpense(empId, expense);
     }
@@ -58,6 +60,7 @@ public class ExpenseService implements ExpenseServiceIF {
      */
     @Override
     public Set<Expense> getExpensesByEmployee(int empId) {
+        // make sure the employee exists
         if (edao.getEmployeeById(empId) == null) {
             return null;
         }
@@ -72,6 +75,7 @@ public class ExpenseService implements ExpenseServiceIF {
      */
     @Override
     public Expense getExpenseById(int empId, int expenseId) {
+        // make sure the employee exists
         if (edao.getEmployeeById(empId) == null) {
             return null;
         }
@@ -86,15 +90,16 @@ public class ExpenseService implements ExpenseServiceIF {
      */
     @Override
     public Set<Expense> getExpenseByStatus(int empId, String status) {
+        // make sure the values are correct.
         if (empId != -1 && edao.getEmployeeById(empId) == null) {
             return null;
         }
+        // if -1 run the manager get expense by status; otherwise run employee
         if (empId == -1) {
-            Set<Expense> expenses = xdao.getExpensesByStatus(status);
-            return expenses;
+            return xdao.getExpensesByStatus(status);
         } else {
-            Set<Expense> expenses = xdao.getExpensesByStatus(empId, status);
-            return expenses;
+            return xdao.getExpensesByStatus(empId, status);
+
         }
     }
 
@@ -106,16 +111,20 @@ public class ExpenseService implements ExpenseServiceIF {
      */
     @Override
     public Expense updateExpense(int manId, Expense expense) {
+        // make sure the manager does exist
         if (mdao.getManagerByID(expense.getEmpId()) == null) {
             return null;
         }
+        // make sure the status is 'approved' or 'denied'
         if (!(expense.getStatus().toLowerCase()).equals("approved") && !(expense.getStatus().toLowerCase()).equals("denied")) {
             return null;
         }
+        // make sure the manager is not trying to approve their own expense
         if (expense.getEmpId() == mdao.getManagerByID(expense.getEmpId()).getManId()) {
             return null;
         }
 
+        // uniformity in database, all statuses are lowercase
         String lower = expense.getStatus().toLowerCase();
         expense.setStatus(lower);
         return xdao.updateExpense(manId, expense);
@@ -129,9 +138,11 @@ public class ExpenseService implements ExpenseServiceIF {
      */
     @Override
     public boolean deleteExpense(int empId, int expenseId) {
+        // make sure the employee exists
         if (edao.getEmployeeById(empId) == null) {
             return false;
         }
+        // make sure the expense exists
         if (xdao.getExpenseById(empId, expenseId) == null) {
             return false;
         }
@@ -156,6 +167,7 @@ public class ExpenseService implements ExpenseServiceIF {
      */
     @Override
     public Manager getManById(int empId) {
+        // make sure the employee exists. Must exist for manager to exist
         if (edao.getEmployeeById(empId) == null) {
             return null;
         }

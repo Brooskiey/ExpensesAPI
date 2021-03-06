@@ -1,6 +1,8 @@
 package dev.kiser.entities;
 
-/** Employee Java */
+/**
+ * Employee Java
+ */
 public class Employee {
 
     /**

@@ -14,25 +14,37 @@ public class LoginController {
     private final ExpenseServiceIF expenseService = new ExpenseService(new ExpenseDaoPostgres(),
             new EmployeeDaoPostgres(), new ManagerDaoPostgres());
 
-
+    /**
+     * handler for logging in.
+     */
     public Handler loginHandler = (ctx) -> {
+
+        // get the username
         String user = ctx.pathParam("username");
         String pass = ctx.pathParam("password");
 
+        // get the employee based on the login information
         Employee emp = expenseService.getEmpById(user, pass);
+
+        // if the login is invalid
         if (emp == null) {
             ctx.result("Invalid login information");
         } else {
             String name = emp.getfName() + " " + emp.getlName();
 
-            String jwt = null;
-
+            // if the employee is a manager
             if (expenseService.getManById(emp.getEmpId()) == null) {
-                jwt = JwtUtil.generate("manager", name);
+
+                //add the name and 'manager' role to the jwt
+                String jwt = JwtUtil.generate("manager", name);
+                ctx.result(jwt);
             } else {
-                jwt = JwtUtil.generate("employee", name);
+
+                //add the name and 'manager' role to the jwt
+                String jwt = JwtUtil.generate("employee", name);
+                ctx.result(jwt);
+
             }
-            ctx.result(jwt);
         }
     };
 }

@@ -2,14 +2,22 @@ package dev.kiser.entities;
 
 import java.sql.Date;
 
-/** Expense Java Bean */
+/**
+ * Expense Java Bean
+ */
 public class Expense {
 
-    /** Status of the expense */
+    /**
+     * Status of the expense
+     */
     private String status;
-    /** Unique id of the expense */
+    /**
+     * Unique id of the expense
+     */
     private int expenseId;
-    /** optional reason from manager for expense denied or approval*/
+    /**
+     * optional reason from manager for expense denied or approval
+     */
     private String managerReason;
     /**
      * optional reason for expense from employee
