@@ -103,8 +103,6 @@ public class Expense {
     }
 
     public Date getSubmissionDate() {
-//        SimpleDateFormat formatter= new SimpleDateFormat("MM/dd/yyyy 'at' HH:mm z");
-//        Date date = new Date(System.currentTimeMillis());
         return submissionDate;
     }
 
@@ -130,16 +128,16 @@ public class Expense {
 
     @Override
     public String toString() {
-        return "Expense{" +
+        return "Expense{\n" +
                 "status='" + status + '\'' +
-                ", expenseId=" + expenseId +
-                ", managerReason='" + managerReason + '\'' +
-                ", empReason='" + empReason + '\'' +
-                ", empId=" + empId +
-                ", amount=" + amount +
-                ", submissionDate=" + submissionDate +
-                ", statusDate=" + statusDate +
-                ", managerId=" + managerId +
+                ", \nexpenseId=" + expenseId +
+                ", \nmanagerReason='" + managerReason + '\'' +
+                ", \nempReason='" + empReason + '\'' +
+                ", \nempId=" + empId +
+                ", \namount=" + amount +
+                ", \nsubmissionDate=" + submissionDate +
+                ", \nstatusDate=" + statusDate +
+                ", \nmanagerId=" + managerId +
                 '}';
     }
 }

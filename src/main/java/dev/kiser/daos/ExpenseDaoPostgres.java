@@ -76,7 +76,7 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
                 expense.setExpenseId(rs.getInt("expense_id"));
                 expense.setAmount(rs.getFloat("amount"));
                 expense.setEmpReason(rs.getString("emp_reason"));
-                expense.setStatusDate(rs.getDate("submission_date"));
+                expense.setSubmissionDate(rs.getDate("submission_date"));
                 expense.setManagerId(rs.getInt("manager_id"));
                 expense.setStatusDate(rs.getDate("status_date"));
 
@@ -164,7 +164,7 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
                 expense.setExpenseId(rs.getInt("expense_id"));
                 expense.setAmount(rs.getFloat("amount"));
                 expense.setEmpReason(rs.getString("emp_reason"));
-                expense.setStatusDate(rs.getDate("submission_date"));
+                expense.setSubmissionDate(rs.getDate("submission_date"));
                 expense.setManagerId(rs.getInt("manager_id"));
                 expense.setStatusDate(rs.getDate("status_date"));
 
@@ -209,9 +209,11 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
                 expense.setExpenseId(rs.getInt("expense_id"));
                 expense.setAmount(rs.getFloat("amount"));
                 expense.setEmpReason(rs.getString("emp_reason"));
-                expense.setStatusDate(rs.getDate("submission_date"));
+                expense.setSubmissionDate(rs.getDate("submission_date"));
                 expense.setManagerId(rs.getInt("manager_id"));
                 expense.setStatusDate(rs.getDate("status_date"));
+
+                logger.debug(expense);
 
                 expenses.add(expense);
             }
@@ -286,7 +288,7 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, expense.getStatus());
-            ps.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
+            ps.setDate(2, new Date(System.currentTimeMillis()));
             ps.setInt(3, expense.getManagerId());
             ps.setString(4, expense.getManagerReason());
             ps.setInt(5, expense.getEmpId());

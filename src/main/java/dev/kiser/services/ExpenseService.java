@@ -86,13 +86,17 @@ public class ExpenseService implements ExpenseServiceIF {
      */
     @Override
     public Set<Expense> getExpenseByStatus(int empId, String status) {
-        if (edao.getEmployeeById(empId) == null) {
+        if (empId != -1 && edao.getEmployeeById(empId) == null) {
             return null;
         }
         if (empId == -1) {
-            return xdao.getExpensesByStatus(status);
+            Set<Expense> expenses = xdao.getExpensesByStatus(status);
+            logger.debug(expenses);
+            return expenses;
         } else {
-            return xdao.getExpensesByStatus(empId, status);
+            Set<Expense> expenses = xdao.getExpensesByStatus(empId, status);
+            logger.debug(expenses);
+            return expenses;
         }
     }
 
