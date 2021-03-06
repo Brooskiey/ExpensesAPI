@@ -213,7 +213,6 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
                 expense.setManagerId(rs.getInt("manager_id"));
                 expense.setStatusDate(rs.getDate("status_date"));
 
-                logger.debug(expense);
 
                 expenses.add(expense);
             }

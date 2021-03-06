@@ -86,7 +86,6 @@ public class EmployeeDaoPostgres implements EmployeeDaoIF {
             return employee;
 
         } catch (SQLException sqlException) {
-//            logger.debug(empId + " : " + username + " : " + password);
             logger.error("Error in getting employee by username \n\t\t\t\t\t" + sqlException);
             return null;
         }
@@ -124,7 +123,6 @@ public class EmployeeDaoPostgres implements EmployeeDaoIF {
             return employee;
 
         } catch (SQLException sqlException) {
-//            logger.debug(empId + " : " + username + " : " + password);
             logger.error("Error in getting employee with ID " + empId + "\n\t\t\t\t\t" + sqlException);
             return null;
         }

@@ -91,11 +91,9 @@ public class ExpenseService implements ExpenseServiceIF {
         }
         if (empId == -1) {
             Set<Expense> expenses = xdao.getExpensesByStatus(status);
-            logger.debug(expenses);
             return expenses;
         } else {
             Set<Expense> expenses = xdao.getExpensesByStatus(empId, status);
-            logger.debug(expenses);
             return expenses;
         }
     }
