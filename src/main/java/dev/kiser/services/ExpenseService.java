@@ -6,10 +6,13 @@ import dev.kiser.daos.ManagerDaoIF;
 import dev.kiser.entities.Employee;
 import dev.kiser.entities.Expense;
 import dev.kiser.entities.Manager;
+import org.apache.log4j.Logger;
 
 import java.util.Set;
 
 public class ExpenseService implements ExpenseServiceIF {
+
+    Logger logger = Logger.getLogger(ExpenseService.class);
 
     private final ExpenseDaoIF xdao;
     private final EmployeeDaoIF edao;
@@ -109,13 +112,17 @@ public class ExpenseService implements ExpenseServiceIF {
     /**
      * update the expense (MANAGER ONLY)
      *
-     * @param manId   manager id
+     * @param empId   employee id of the manager
      * @param expense expense to update with
      */
     @Override
-    public Expense updateExpense(int manId, Expense expense) {
+    public Expense updateExpense(int empId, Expense expense) {
+
+        // get the manager
+        Manager manager = mdao.getManagerByID(empId);
+
         // make sure the manager does exist
-        if (mdao.getManagerByID(expense.getEmpId()) == null) {
+        if (manager == null) {
             return null;
         }
         // make sure the status is 'approved' or 'denied'
@@ -123,14 +130,16 @@ public class ExpenseService implements ExpenseServiceIF {
             return null;
         }
         // make sure the manager is not trying to approve their own expense
-        if (expense.getEmpId() == mdao.getManagerByID(expense.getEmpId()).getManId()) {
+        if (expense.getEmpId() == manager.getManId()) {
             return null;
         }
 
         // uniformity in database, all statuses are lowercase
         String lower = expense.getStatus().toLowerCase();
         expense.setStatus(lower);
-        return xdao.updateExpense(manId, expense);
+        // make sure the manager id is correct takes precedents
+        expense.setManagerId(manager.getManId());
+        return xdao.updateExpense(empId, expense);
     }
 
     /**

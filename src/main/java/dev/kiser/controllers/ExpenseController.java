@@ -17,16 +17,23 @@ import java.util.Set;
 public class ExpenseController {
 
     private final ExpenseServiceIF expenseService = new ExpenseService(new ExpenseDaoPostgres(), new EmployeeDaoPostgres(), new ManagerDaoPostgres());
+    /**
+     * Create a new expense based on given expense
+     */
     public Handler createExpense = ctx -> {
+        // get the expense sent
         String body = ctx.body();
         Gson gson = new Gson();
         Expense expense = gson.fromJson(body, Expense.class);
+        // create the expense
         expenseService.registerExpense(expense.getEmpId(), expense);
+        // send back the expense with the new expense id
         String json = gson.toJson(expense);
         ctx.result(json);
         ctx.status(201);
     };
     Logger logger = Logger.getLogger(ExpenseController.class);
+
 
     /**
      * Handles the case of the employee being a manager
@@ -97,8 +104,6 @@ public class ExpenseController {
         }
     }
 
-    // end allExpenses controller and helpers
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * Get all expenses handler Determines whether to use employee or manager version for the query params Only manager
      * can get all expenses for all employees
@@ -157,9 +162,6 @@ public class ExpenseController {
             ctx.result("Missing authorization or improper token");
         }
     };
-
-    // end expense by id
-    ////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * Get the expense by id
      */
@@ -193,9 +195,61 @@ public class ExpenseController {
             ctx.status(404);
         }
     };
+    /**
+     * Update the expense (MANAGER ONLY)
+     */
+    public Handler updateExpense = ctx -> {
 
-    // end create expense
-    //////////////////////////////////////////////////////////////////////////////////////////////
+        // get the path params
+        String exId = ctx.pathParam("xid");
+        String empId = ctx.pathParam("eid");
 
+        // get the updated expense
+        String body = ctx.body();
+        Gson gson = new Gson();
+        Expense newExpense = gson.fromJson(body, Expense.class);
 
+        // try to decode the the jwt and turn the params into ints
+        try {
+
+            int xid = Integer.parseInt(exId);
+            int eid = Integer.parseInt(empId);
+            // make sure the expense id is the expense id
+            newExpense.setExpenseId(xid);
+
+            // check the jwt sent via authorization
+            String jwt = ctx.queryParam("Authorization");
+            DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt); // make sure it is valid
+
+            // role must be manager
+            if (decodedJWT.getClaim("role").asString().equals("manager")) {
+                Expense expense = expenseService.updateExpense(eid, newExpense);
+
+                if (expense == null) {
+                    ctx.result("Expense could not be updated");
+                    ctx.status(404);
+
+                } else {
+                    String expenseJSON = gson.toJson(expense);
+                    ctx.result(expenseJSON);
+                    ctx.status(200);
+                }
+            } else {
+                ctx.result("You are not authorized to complete this task");
+                ctx.status(404);
+            }
+
+        } catch (NumberFormatException e) {
+            // the path params were not integers
+            logger.error("The numerical values aren't numbers: " + exId + " : " + empId);
+            ctx.result("The ids provided are not numbers");
+            ctx.status(404);
+
+        } catch (Exception e) {
+            // jwt could not be decoded
+            logger.error("Authorization error");
+            ctx.status(403);
+            ctx.result("Missing authorization or improper token");
+        }
+    };
 }
