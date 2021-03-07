@@ -10,68 +10,23 @@ import dev.kiser.services.ExpenseService;
 import dev.kiser.services.ExpenseServiceIF;
 import dev.kiser.utils.JwtUtil;
 import io.javalin.http.Handler;
+import org.apache.log4j.Logger;
 
 import java.util.Set;
 
 public class ExpenseController {
 
     private final ExpenseServiceIF expenseService = new ExpenseService(new ExpenseDaoPostgres(), new EmployeeDaoPostgres(), new ManagerDaoPostgres());
-
-    /**
-     * Get all expenses handler Determines whether to use employee or manager version for the query params Only manager
-     * can get all expenses for all employees
-     */
-    public Handler getAllExpensesHandler = ctx -> {
-
-        // get query params
-        String eid = ctx.queryParam("eid", "NONE");
-        String status = ctx.queryParam("status", "NONE");
-
-        try {
-            // check the jwt sent via authorization
-            String jwt = ctx.queryParam("Authorization");
-            DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt); // make sure it is valid
-
-            // role must be manager
-            if (decodedJWT.getClaim("role").asString().equals("manager")) {
-
-                String expensesJSON = isManager(eid, status);
-                // if nothing went wrong and null was not returned
-                if (expensesJSON != null) {
-                    ctx.result(expensesJSON);
-                    ctx.status(200);
-
-                } else {
-                    // an error likely happened in the status since getAllExpenses works as long as the database exists
-                    ctx.result("Please check your status value. Must be 'pending', 'approved', or 'denied'");
-                    ctx.status(404);
-                }
-
-            } else {
-                // role is employee
-                String expensesJSON = isEmployee(eid, status);
-
-                // checking if something went wrong
-                if (expensesJSON == null) {
-                    ctx.result("Please check your status value. Must be 'pending', 'approved', or 'denied'");
-                    ctx.status(404);
-
-                } else if (expensesJSON.equals("null eid")) {
-                    // if the employee is was null, 'null eid' is returned
-                    ctx.result("Employee ID is null");
-                    ctx.status(404);
-
-                } else {
-                    ctx.result(expensesJSON);
-                    ctx.status(200);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            ctx.status(403);
-            ctx.result("Missing authorization or improper token");
-        }
+    public Handler createExpense = ctx -> {
+        String body = ctx.body();
+        Gson gson = new Gson();
+        Expense expense = gson.fromJson(body, Expense.class);
+        expenseService.registerExpense(expense.getEmpId(), expense);
+        String json = gson.toJson(expense);
+        ctx.result(json);
+        ctx.status(201);
     };
+    Logger logger = Logger.getLogger(ExpenseController.class);
 
     /**
      * Handles the case of the employee being a manager
@@ -141,5 +96,106 @@ public class ExpenseController {
             return "null eid";
         }
     }
+
+    // end allExpenses controller and helpers
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Get all expenses handler Determines whether to use employee or manager version for the query params Only manager
+     * can get all expenses for all employees
+     */
+    public Handler getAllExpensesHandler = ctx -> {
+
+        // get query params
+        String eid = ctx.queryParam("eid", "NONE");
+        String status = ctx.queryParam("status", "NONE");
+
+        try {
+            // check the jwt sent via authorization
+            String jwt = ctx.queryParam("Authorization");
+            DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt); // make sure it is valid
+
+            // role must be manager
+            if (decodedJWT.getClaim("role").asString().equals("manager")) {
+
+                // run the isManager section
+                String expensesJSON = isManager(eid, status);
+
+                // if nothing went wrong and null was not returned
+                if (expensesJSON != null) {
+                    ctx.result(expensesJSON);
+                    ctx.status(200);
+
+                } else {
+                    // an error likely happened in the status since getAllExpenses works as long as the database exists
+                    ctx.result("Please check your status value. Must be 'pending', 'approved', or 'denied'");
+                    ctx.status(404);
+                }
+
+            } else {
+                // role is employee
+                // run the isEmployee section
+                String expensesJSON = isEmployee(eid, status);
+
+                // checking if something went wrong
+                if (expensesJSON == null) {
+                    ctx.result("Please check your status value. Must be 'pending', 'approved', or 'denied'");
+                    ctx.status(404);
+
+                } else if (expensesJSON.equals("null eid")) {
+                    // if the employee is was null, 'null eid' is returned
+                    ctx.result("Employee ID is null");
+                    ctx.status(404);
+
+                } else {
+                    ctx.result(expensesJSON);
+                    ctx.status(200);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Authorization error");
+            ctx.status(403);
+            ctx.result("Missing authorization or improper token");
+        }
+    };
+
+    // end expense by id
+    ////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Get the expense by id
+     */
+    public Handler getExpenseById = ctx -> {
+        // get path params
+        String exId = ctx.pathParam("xid");
+        String empId = ctx.pathParam("eid");
+
+        try {
+            // make sure the values are integers
+            int xid = Integer.parseInt(exId);
+            int eid = Integer.parseInt(empId);
+
+            // no error thrown, get the expense
+            Expense expense = expenseService.getExpenseById(eid, xid);
+
+            // if nothing went wrong with getting the expense
+            if (expense == null) {
+                ctx.result("Please check your ids to make sure they are valid");
+                ctx.status(404);
+            } else {
+                Gson gson = new Gson();
+                String expenseJSON = gson.toJson(expense);
+                ctx.result(expenseJSON);
+                ctx.status(200);
+            }
+
+        } catch (NumberFormatException e) {
+            logger.error("The numerical values aren't numbers: " + exId + " : " + empId);
+            ctx.result("The ids provided are not numbers");
+            ctx.status(404);
+        }
+    };
+
+    // end create expense
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
 
 }

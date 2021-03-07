@@ -120,7 +120,7 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
             expense.setExpenseId(rs.getInt("expense_id"));
             expense.setAmount(rs.getFloat("amount"));
             expense.setEmpReason(rs.getString("emp_reason"));
-            expense.setStatusDate(rs.getDate("submission_date"));
+            expense.setSubmissionDate(rs.getDate("submission_date"));
             expense.setManagerId(rs.getInt("manager_id"));
             expense.setStatusDate(rs.getDate("status_date"));
 
@@ -255,7 +255,7 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
                 expense.setExpenseId(rs.getInt("expense_id"));
                 expense.setAmount(rs.getFloat("amount"));
                 expense.setEmpReason(rs.getString("emp_reason"));
-                expense.setStatusDate(rs.getDate("submission_date"));
+                expense.setSubmissionDate(rs.getDate("submission_date"));
                 expense.setManagerId(rs.getInt("manager_id"));
                 expense.setStatusDate(rs.getDate("status_date"));
 

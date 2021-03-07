@@ -42,7 +42,10 @@ public class ExpenseService implements ExpenseServiceIF {
         }
         // all new expenses should have a 'pending' status
         expense.setStatus("pending");
+        expense.setManagerId(0);
+        expense.setManagerReason("");
         return xdao.createExpense(empId, expense);
+
     }
 
     /**

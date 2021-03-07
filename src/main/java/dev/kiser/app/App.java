@@ -21,17 +21,17 @@ public class App {
         // GET /expenses?eid=2&status=pending => only returns expenses containing that status for that employee
         app.get("/expenses", expenseController.getAllExpensesHandler);
 
-//        // GET /expenses/12/employee/2 => Get expense with ID 12 from employee 2
-//        app.get("/expenses/:id/employee/:eid",null);
-//
-//        // POST /expenses => create a new expense
-//        app.post("/expenses",null);
-//
+        // GET /expenses/12/employee/2 => Get expense with ID 12 from employee 2
+        app.get("/expenses/:xid/employee/:eid", expenseController.getExpenseById);
+
+        // POST /expenses => create a new expense
+        app.post("/expenses", expenseController.createExpense);
+
 //        // PUT /expenses/12/employee/2 => update expense 12 for employee 2
-//        app.put("/expenses/:id/employee/:eid", null);
-//
+//        app.put("/expenses/:xid/employee/:eid", null);
+
 //        // DELETE /expenses/12/employee/2 => delete expense with 12 for employee 2
-//        app.delete("/expenses/:id/employee/:eid", null);
+//        app.delete("/expenses/:xid/employee/:eid", null);
 
         // we had users
         app.post("/users/login", loginController.loginHandler);
