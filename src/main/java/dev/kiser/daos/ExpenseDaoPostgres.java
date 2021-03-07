@@ -39,7 +39,7 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
             int key = rs.getInt("expense_id");
             Date sub_date = rs.getDate("submission_date");
             expense.setExpenseId(key);
-            expense.setStatusDate(sub_date);
+            expense.setSubmissionDate(sub_date);
 
 
             logger.info("Create expense #" + expense.getExpenseId() + " for employee #" + empId);

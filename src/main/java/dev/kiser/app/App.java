@@ -31,7 +31,7 @@ public class App {
         app.put("/expenses/:xid/manager/:eid", expenseController.updateExpense);
 
         // DELETE /expenses/12/employee/2 => delete expense with 12 for employee 2
-        app.delete("/expenses/:xid/employee/:eid", null);
+        app.delete("/expenses/:xid/employee/:eid", expenseController.deleteExpense);
 
         // we had users
         app.post("/users/login", loginController.loginHandler);

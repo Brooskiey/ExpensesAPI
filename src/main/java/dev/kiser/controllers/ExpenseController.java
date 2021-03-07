@@ -252,4 +252,35 @@ public class ExpenseController {
             ctx.result("Missing authorization or improper token");
         }
     };
+
+    public Handler deleteExpense = ctx -> {
+        // get the path params
+        String exId = ctx.pathParam("xid");
+        String empId = ctx.pathParam("eid");
+
+        // try to decode the the jwt and turn the params into ints
+        try {
+
+            int xid = Integer.parseInt(exId);
+            int eid = Integer.parseInt(empId);
+            // make sure the expense id is the expense id
+
+            boolean result = expenseService.deleteExpense(eid, xid);
+
+            if (!result) {
+                ctx.result("Expense could not be deleted");
+                ctx.status(404);
+
+            } else {
+                ctx.result("Expense deleted");
+                ctx.status(200);
+            }
+        } catch (NumberFormatException e) {
+            // the path params were not integers
+            logger.error("The numerical values aren't numbers: " + exId + " : " + empId);
+            ctx.result("The ids provided are not numbers");
+            ctx.status(404);
+
+        }
+    };
 }
