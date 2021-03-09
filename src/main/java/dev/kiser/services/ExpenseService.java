@@ -130,7 +130,7 @@ public class ExpenseService implements ExpenseServiceIF {
             return null;
         }
         // make sure the manager is not trying to approve their own expense
-        if (expense.getEmpId() == manager.getManId()) {
+        if (expense.getEmpId() == manager.getEmpId()) {
             return null;
         }
 
@@ -139,7 +139,7 @@ public class ExpenseService implements ExpenseServiceIF {
         expense.setStatus(lower);
         // make sure the manager id is correct takes precedents
         expense.setManagerId(manager.getManId());
-        return xdao.updateExpense(empId, expense);
+        return xdao.updateExpense(manager.getManId(), expense);
     }
 
     /**

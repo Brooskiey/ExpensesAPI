@@ -288,13 +288,12 @@ public class ExpenseDaoPostgres implements ExpenseDaoIF {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, expense.getStatus());
             ps.setDate(2, new Date(System.currentTimeMillis()));
-            ps.setInt(3, expense.getManagerId());
+            ps.setInt(3, manId);
             ps.setString(4, expense.getManagerReason());
             ps.setInt(5, expense.getEmpId());
             ps.setInt(6, expense.getExpenseId());
             ps.execute();
 
-            expense.setManagerId(manId);
             logger.info("Update expense with ID " + expense.getExpenseId() + " for employee ID " + expense.getEmpId() +
                     " and updated by manager ID " + manId);
 

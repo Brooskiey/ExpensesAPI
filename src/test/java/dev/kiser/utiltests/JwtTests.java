@@ -1,21 +1,30 @@
 package dev.kiser.utiltests;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import dev.kiser.entities.Employee;
 import dev.kiser.utils.JwtUtil;
 import org.junit.jupiter.api.Test;
 
 public class JwtTests {
 
+    Employee employee = new Employee();
+
 
     @Test
     void creates_jwt() {
-        String jwt = JwtUtil.generate("employee", "Mary Sue");
+        employee.setfName("Mary");
+        employee.setlName("Sue");
+        employee.setEmpId(2);
+        String jwt = JwtUtil.generate("employee", employee);
         System.out.println(jwt);
     }
 
     @Test
     void creates_jwt_manager() {
-        String jwt = JwtUtil.generate("manager", "Linda Wright");
+        employee.setfName("Mary");
+        employee.setlName("Sue");
+        employee.setEmpId(6);
+        String jwt = JwtUtil.generate("manager", employee);
         System.out.println(jwt);
     }
 
