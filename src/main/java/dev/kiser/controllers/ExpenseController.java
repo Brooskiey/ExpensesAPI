@@ -17,6 +17,8 @@ import java.util.Set;
 public class ExpenseController {
 
     private final ExpenseServiceIF expenseService = new ExpenseService(new ExpenseDaoPostgres(), new EmployeeDaoPostgres(), new ManagerDaoPostgres());
+    private final Logger logger = Logger.getLogger(ExpenseController.class);
+
     /**
      * Create a new expense based on given expense
      */
@@ -32,8 +34,6 @@ public class ExpenseController {
         ctx.result(json);
         ctx.status(201);
     };
-    Logger logger = Logger.getLogger(ExpenseController.class);
-
 
     /**
      * Handles the case of the employee being a manager
@@ -253,6 +253,9 @@ public class ExpenseController {
         }
     };
 
+    /**
+     * Delete the expense
+     */
     public Handler deleteExpense = ctx -> {
         // get the path params
         String exId = ctx.pathParam("xid");
