@@ -16,7 +16,7 @@ public class JwtUtil {
                 .withClaim("role", role) // add data to the payload
                 .withClaim("empName", employee.getfName() + " " + employee.getlName())
                 .withClaim("id", employee.getEmpId())
-                .sign(algorithm); // this will generate a signture based off of those claims
+                .sign(algorithm);
 
         return token;
     }

@@ -8,7 +8,7 @@ import dev.kiser.entities.Employee;
 import dev.kiser.services.ExpenseService;
 import dev.kiser.services.ExpenseServiceIF;
 import dev.kiser.utils.JwtUtil;
-import dev.kiser.utils.LoginCredientials;
+import dev.kiser.utils.LoginCredential;
 import io.javalin.http.Handler;
 
 public class LoginController {
@@ -23,7 +23,7 @@ public class LoginController {
 
         String body = ctx.body();
         Gson gson = new Gson();
-        LoginCredientials login = gson.fromJson(body, LoginCredientials.class);
+        LoginCredential login = gson.fromJson(body, LoginCredential.class);
 
         // get the employee based on the login information
         Employee emp = expenseService.getEmpById(login.getUsername(), login.getPassword());

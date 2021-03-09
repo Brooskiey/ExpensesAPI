@@ -1,11 +1,11 @@
 package dev.kiser.utils;
 
-public class LoginCredientials {
+public class LoginCredential {
 
     private String password;
     private String username;
 
-    public LoginCredientials(String username, String password) {
+    public LoginCredential(String username, String password) {
         this.password = password;
         this.username = username;
     }
