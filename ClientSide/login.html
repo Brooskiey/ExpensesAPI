@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Document</title>
+</head>
+
+<body>
+<button id="login">Login</button>
+<input id="username" type="string"></div>
+<input id="password" type="string"></div>
+<p id="failed"></p>
+</body>
+
+<script>
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
+    const failed = document.getElementById("failed");
+
+    let id = 0;
+
+    document.getElementById("login").addEventListener("click", async function () {
+
+        if (username.value.length == 0 || password.value.length == 0) {
+            username.value = "";
+            password.value = "";
+            failed.innerHTML = "Login failed";
+
+        } else {
+            const login = {
+                "username": username.value,
+                "password": password.value
+            }
+
+            const details = {
+                method: 'POST',
+                body: JSON.stringify(login)
+            }
+
+            const httpResponse = await fetch(`http://localhost:7000/users/login`, details);
+            const jwt = await httpResponse.text(); // the jwt
+            localStorage.setItem('jwt', jwt);
+
+            const token = localStorage.getItem("jwt"); // jwt token;
+
+            const decoded = JSON.parse(atob(token.split('.')[1]));
+            id = decoded.id;
+            console.log(id);
+        }
+    });
+</script>
+
+</html>
