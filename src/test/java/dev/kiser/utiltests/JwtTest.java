@@ -5,7 +5,7 @@ import dev.kiser.entities.Employee;
 import dev.kiser.utils.JwtUtil;
 import org.junit.jupiter.api.Test;
 
-public class JwtTests {
+public class JwtTest {
 
     Employee employee = new Employee();
 

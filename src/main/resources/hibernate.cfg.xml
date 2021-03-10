@@ -5,7 +5,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://35.196.41.218:5432/ExpensesAPI</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://35.196.41.218:5432/ExpenseAPI</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         
 		<property name="hibernate.connection.username">Brooskiey</property>
