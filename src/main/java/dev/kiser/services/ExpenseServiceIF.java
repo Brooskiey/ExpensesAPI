@@ -42,7 +42,7 @@ public interface ExpenseServiceIF {
     /**
      * delete the specific expense
      */
-    boolean deleteExpense(int empId, int expenseId) throws EmployeeNotFoundException, ExpenseNotFoundException;
+    boolean deleteExpense(int empId, int expenseId) throws EmployeeNotFoundException, ExpenseNotFoundException, OperationNotPossible;
 
     /**
      * gets the employee by username and password

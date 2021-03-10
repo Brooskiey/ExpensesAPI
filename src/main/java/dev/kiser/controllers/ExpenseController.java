@@ -25,10 +25,16 @@ public class ExpenseController {
      * Create a new expense based on given expense
      */
     public Handler createExpense = ctx -> {
+        // check the jwt sent via authorization
+        String jwt = ctx.queryParam("Authorization");
+        DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
+
         // get the expense sent
         String body = ctx.body();
         Gson gson = new Gson();
         Expense expense = gson.fromJson(body, Expense.class);
+
+
         // create the expense
         expenseService.registerExpense(expense.getEmpId(), expense);
         // send back the expense with the new expense id
@@ -87,6 +93,10 @@ public class ExpenseController {
         String empId = ctx.pathParam("eid");
 
         try {
+            // check the jwt sent via authorization
+            String jwt = ctx.queryParam("Authorization");
+            DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
+
             // make sure the values are integers
             int xid = Integer.parseInt(exId);
             int eid = Integer.parseInt(empId);
@@ -114,22 +124,23 @@ public class ExpenseController {
         String exId = ctx.pathParam("xid");
         String empId = ctx.pathParam("eid");
 
-        // get the updated expense
-        String body = ctx.body();
-        Gson gson = new Gson();
-        Expense newExpense = gson.fromJson(body, Expense.class);
-
-        // try to decode the the jwt and turn the params into ints
         try {
+            // check the jwt sent via authorization
+            String jwt = ctx.queryParam("Authorization");
+            DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt); // make sure it is valid
+
+            // get the updated expense
+            String body = ctx.body();
+            Gson gson = new Gson();
+            Expense newExpense = gson.fromJson(body, Expense.class);
+
+            // try to decode the the jwt and turn the params into ints
+
 
             int xid = Integer.parseInt(exId);
             int eid = Integer.parseInt(empId);
             // make sure the expense id is the expense id
             newExpense.setExpenseId(xid);
-
-            // check the jwt sent via authorization
-            String jwt = ctx.queryParam("Authorization");
-            DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt); // make sure it is valid
 
             // role must be manager
             if (decodedJWT.getClaim("role").asString().equals("manager")) {
@@ -168,6 +179,9 @@ public class ExpenseController {
 
         // try to decode the the jwt and turn the params into ints
         try {
+            // check the jwt sent via authorization
+            String jwt = ctx.queryParam("Authorization");
+            DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
 
             int xid = Integer.parseInt(exId);
             int eid = Integer.parseInt(empId);
@@ -189,7 +203,7 @@ public class ExpenseController {
             ctx.result("The ids provided are not numbers");
             ctx.status(404);
 
-        } catch (EmployeeNotFoundException | ExpenseNotFoundException e) {
+        } catch (EmployeeNotFoundException | ExpenseNotFoundException | OperationNotPossible e) {
             logger.error(e.getMessage());
             ctx.status(404);
             ctx.result(e.getMessage());

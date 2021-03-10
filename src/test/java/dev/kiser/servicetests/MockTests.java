@@ -45,15 +45,19 @@ public class MockTests {
     @Order(1)
     void register_expense() {
 
-        Expense expense = new Expense(null, 0, "Go with Potato. Go see your sister and Auntie BB.",
-                "I need a plane ticket home",
-                1, 300, null, null, 0);
+        try {
+            Expense expense = new Expense(null, 0, "Go with Potato. Go see your sister and Auntie BB.",
+                    "I need a plane ticket home",
+                    1, 300, null, null, 0);
 
-        serviceIf.registerExpense(1, expense);
+            serviceIf.registerExpense(1, expense);
 
-        System.out.println("\nregister_expense: assertEquals" +
-                "\n\tExpected: 'Pending'" +
-                "\n\tActual: " + expense.getStatus());
-        Assertions.assertEquals("Pending", expense.getStatus());
+            System.out.println("\nregister_expense: assertEquals" +
+                    "\n\tExpected: 'Pending'" +
+                    "\n\tActual: " + expense.getStatus());
+            Assertions.assertEquals("Pending", expense.getStatus());
+        } catch (Exception e) {
+            Assertions.fail();
+        }
     }
 }

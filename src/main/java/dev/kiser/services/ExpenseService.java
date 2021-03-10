@@ -177,16 +177,24 @@ public class ExpenseService implements ExpenseServiceIF {
      * @param expenseId expense id
      */
     @Override
-    public boolean deleteExpense(int empId, int expenseId) throws EmployeeNotFoundException, ExpenseNotFoundException {
+    public boolean deleteExpense(int empId, int expenseId)
+            throws EmployeeNotFoundException, ExpenseNotFoundException, OperationNotPossible {
         // make sure the employee exists
         if (edao.getEmployeeById(empId) == null) {
             throw new EmployeeNotFoundException("Employee could not be found");
         }
         // make sure the expense exists
-        if (xdao.getExpenseById(empId, expenseId) == null) {
+
+        Expense expenseById = xdao.getExpenseById(empId, expenseId);
+        if (expenseById == null) {
             throw new ExpenseNotFoundException("The expense does not exist");
         }
-        return xdao.deleteExpense(empId, expenseId);
+        // make sure only pending requests can be deleted
+        if (expenseById.getStatus().equals("pending")) {
+            return xdao.deleteExpense(empId, expenseId);
+        } else {
+            throw new OperationNotPossible("The status must be 'pending'");
+        }
     }
 
     /**
