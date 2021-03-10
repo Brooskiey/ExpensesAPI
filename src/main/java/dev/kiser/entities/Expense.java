@@ -1,47 +1,50 @@
 package dev.kiser.entities;
 
+import javax.persistence.*;
 import java.sql.Date;
 
-/**
- * Expense Java Bean
- */
+/** Expense Java Bean */
 public class Expense {
 
-    /**
-     * Status of the expense
-     */
+    /** Status of the expense */
+    @Column(name = "status")
     private String status;
-    /**
-     * Unique id of the expense
-     */
+
+    /** Unique id of the expense */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "last_name")
     private int expenseId;
-    /**
-     * optional reason from manager for expense denied or approval
-     */
+
+    /** optional reason from manager for expense denied or approval */
+    @Column(name = "manager_reason")
     private String managerReason;
-    /**
-     * optional reason for expense from employee
-     */
+
+    /** optional reason for expense from employee */
+    @Column(name = "emp_reason")
     private String empReason;
-    /**
-     * link to the employee
-     */
+
+    /** link to the employee */
+    @Column(name = "employee_id")
+    @JoinColumn(name = "employee_id")
     private int empId;
-    /**
-     * the amount to be reimbursed
-     */
+
+    /** the amount to be reimbursed */
+    @Column(name = "amount")
     private float amount;
-    /**
-     * date in unix time of submission
-     */
+
+    /** date in unix time of submission */
+    @Column(name = "submission_date")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Date submissionDate;
-    /**
-     * date in unix time of status update
-     */
+
+    /** date in unix time of status update */
+    @Column(name = "status_date")
     private Date statusDate;
-    /**
-     * approving manager
-     */
+
+    /** approving manager */
+    @Column(name = "manager_id")
+    @JoinColumn(name = "manager_id")
     private int managerId;
 
     // default constructor

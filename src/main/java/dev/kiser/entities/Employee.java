@@ -1,34 +1,38 @@
 package dev.kiser.entities;
 
+import javax.persistence.*;
+
 /**
  * Employee Java
  */
+@Entity
+@Table(name = "employee")
 public class Employee {
 
-    /**
-     * unique employee id
-     */
+    /** unique employee id */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "employee_id")
     private int empId;
-    /**
-     * first name
-     */
+
+    /** first name */
+    @Column(name = "first_name")
     private String fName;
-    /**
-     * last name
-     */
+
+    /** last name */
+    @Column(name = "last_name")
     private String lName;
-    /**
-     * unique email
-     */
+
+    /** unique email */
+    @Column(name = "email")
     private String email;
 
-    /**
-     * the employee's password
-     */
+    /** the employee's password */
+    @Column(name = "password")
     private String password;
-    /**
-     * the employee's username
-     */
+
+    /** the employee's username */
+    @Column(name = "username")
     private String username;
 
     // default constructor

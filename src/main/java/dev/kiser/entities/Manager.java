@@ -1,10 +1,18 @@
 package dev.kiser.entities;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class Manager extends Employee {
 
     /**
      * manager id
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "manager_id")
     private int manId;
 
     public Manager() {
