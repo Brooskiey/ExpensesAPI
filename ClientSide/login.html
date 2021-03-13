@@ -5,51 +5,71 @@
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="tst.css">
     <title>Document</title>
 </head>
 
 <body>
-<button id="login">Login</button>
-<input id="username" type="string"></div>
-<input id="password" type="string"></div>
-<p id="failed"></p>
+    <div class="loginpic">
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+                <!-- Tabs Titles -->
+
+                <!-- Icon -->
+                <div class="fadeIn first">
+                    <img src="C:\Users\brook\Pictures\tangled.jpeg" id="icon" alt="User Icon" />
+                    <h1>Kingdom of Corona</h1>
+                </div>
+
+                <!-- Login Form -->
+                <input type="text" id="login" class="fadeIn second" name="login" placeholder="username">
+                <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+                <input type="submit" class="fadeIn fourth" value="Log In">
+
+            </div>
+        </div>
+    </div>
 </body>
 
 <script>
-    const username = document.getElementById("username");
-    const password = document.getElementById("password");
-    const failed = document.getElementById("failed");
-
+    const username = document.getElementById("login ");
+    const password = document.getElementById("password ");
     let id = 0;
 
-    document.getElementById("login").addEventListener("click", async function () {
 
-        if (username.value.length == 0 || password.value.length == 0) {
-            username.value = "";
-            password.value = "";
-            failed.innerHTML = "Login failed";
 
-        } else {
-            const login = {
-                "username": username.value,
-                "password": password.value
-            }
+    document.getElementById("button ").addEventListener("click ", async function() {
+        console.log("Login ")
+        const login = {
+            "username ": username.value,
+            "password ": password.value
 
-            const details = {
-                method: 'POST',
-                body: JSON.stringify(login)
-            }
+        }
+        console.log("details ")
+        const details = {
+            method: 'POST',
+            body: JSON.stringify(login)
+        }
 
-            const httpResponse = await fetch(`http://localhost:7000/users/login`, details);
+        console.log("Fetch ")
+        const httpResponse = await fetch(`http://localhost:7000/users/login`, details);
+
+        console.log("Status ");
+
+        if (httpResponse.ok) {
+            console.log(400);
             const jwt = await httpResponse.text(); // the jwt
             localStorage.setItem('jwt', jwt);
-
-            const token = localStorage.getItem("jwt"); // jwt token;
-
-            const decoded = JSON.parse(atob(token.split('.')[1]));
-            id = decoded.id;
-            console.log(id);
+            window.location.href = "employee.html";
+        } else {
+            alert("Username or password is incorrect ");
         }
+
+
+        username.value = " ";
+        password.value = " ";
+
     });
 </script>
 

@@ -2,6 +2,11 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="employee.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="Employee.js">
+    </script>
+
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -9,10 +14,153 @@
 </head>
 
 <body>
+    <div class="emp-container">
+        <div class="Menu">
 
+            <div id="mySidepanel" class="sidepanel">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+
+                <!-- Trigger/Open The Modal -->
+                <button id="myBtn" class="openbtnside">Create Expense</button>
+
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <form>
+                            <h1>Create New Expense</h1>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Amount</label>
+                                <input type="amount" class="form-control" id="exampleFormControlInput1" placeholder="300">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Reason for Reimbursement</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+                <script>
+                    // Get the modal
+                    var modal = document.getElementById("myModal");
+
+                    // Get the button that opens the modal
+                    var btn = document.getElementById("myBtn");
+
+                    // Get the <span> element that closes the modal
+                    var span = document.getElementsByClassName("close")[0];
+
+                    // When the user clicks the button, open the modal 
+                    btn.onclick = function() {
+                        modal.style.display = "block";
+
+                    }
+
+                    // When the user clicks on <span> (x), close the modal
+                    span.onclick = function() {
+                        modal.style.display = "none";
+                    }
+
+                    // When the user clicks anywhere outside of the modal, close it
+                    window.onclick = function(event) {
+                        modal.modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        })
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                        }
+                    }
+                </script>
+
+                <img src="C:\Users\brook\Documents\Recipes\sundrop.jpg">
+            </div>
+
+            <div class="text-center"><button class="openbtn" onclick="openNav()">
+                <svg xmlns="http://www.w3.org/2000/svg " width="25 " height="45 " fill="currentColor " class="bi bi-menu-up " viewBox="0 0 16 16 ">
+                <path d="M7.646 15.854a.5.5 0 0 0 .708 0L10.207 14H14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3.793l1.853 1.854zM1 9V6h14v3H1zm14 1v2a1 1 0 0 1-1 1h-3.793a1 1 0 0 0-.707.293l-1.5 1.5-1.5-1.5A1 1 0 0 0 5.793 13H2a1
+                1 0 0 1-1-1v-2h14zm0-5H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2zM2 11.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 0-1h-8a.5.5 0 0 0-.5.5zm0-4a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11a.5.5 0 0 0-.5.5zm0-4a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 0-1h-6a.5.5 0 0 0-.5.5z "
+                />
+                </svg>
+            </button>
+            </div>
+
+            <script>
+                function openNav() {
+                    document.getElementById("mySidepanel").style.width = "250px";
+                }
+
+                function closeNav() {
+                    document.getElementById("mySidepanel").style.width = "0";
+                }
+            </script>
+        </div>
+        <div id="ex " class="Expenses ">
+            <table class="table">
+                <thead>
+                    <th scope="col">ID</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Employee Reason</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Manager Reason</th>
+                    <th scope="col">Submission Date</th>
+                    <th scope="col">Status Date</th>
+                    <th scope="col">Manager</th>
+                </thead>
+                <tbody id="expenseTableBody "></tbody>
+            </table>
+            <script>
+                async function getEmployeehtml() {
+                    const table = document.getElementById("expenseTableBody ")
+                    table.innerHTML = await getEmployee();
+
+                    //https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sort_table
+
+                    var rows, switching, i, x, y, shouldSwitch;
+                    switching = true;
+                    while (switching) {
+                        switching = false;
+                        rows = table.rows;
+                        for (i = 0; i < (rows.length - 1); i++) {
+                            shouldSwitch = false;
+                            x = rows[i].getElementsByTagName("td")[0];
+                            y = rows[i + 1].getElementsByTagName("td")[0];
+                            if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+                                shouldSwitch = true;
+                                break;
+                            }
+                        }
+                        if (shouldSwitch) {
+                            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                            switching = true;
+                        }
+                    }
+                }
+                getEmployeehtml();
+            </script>
+        </div>
+        <div id="empName" e class="Employee-name">
+            <p>
+                <script>
+                    const token = localStorage.getItem('jwt'); // jwt token;
+
+                    const decoded = JSON.parse(atob(token.split('.')[1]));
+                    console.log(decoded.name)
+                    document.getElementById("empName").innerHTML = decoded.empName;
+                </script>
+            </p>
+        </div>
+        <div class="Title ">
+            <h2>Employee Expenses</h2>
+        </div>
+
+    </div>
 
 </body>
-<script src="Employee.js">
-</script>
 
 </html>
