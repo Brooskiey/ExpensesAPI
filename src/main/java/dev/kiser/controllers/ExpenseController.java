@@ -26,7 +26,7 @@ public class ExpenseController {
      */
     public Handler createExpense = ctx -> {
         // check the jwt sent via authorization
-        String jwt = ctx.queryParam("Authorization");
+        String jwt = ctx.header("Authorization");
         DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
 
         // get the expense sent
@@ -56,7 +56,7 @@ public class ExpenseController {
 
         try {
             // check the jwt sent via authorization
-            String jwt = ctx.queryParam("Authorization");
+            String jwt = ctx.header("Authorization");
             DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt); // make sure it is valid
 
             // role must be manager
@@ -94,7 +94,7 @@ public class ExpenseController {
 
         try {
             // check the jwt sent via authorization
-            String jwt = ctx.queryParam("Authorization");
+            String jwt = ctx.header("Authorization");
             DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
 
             // make sure the values are integers
@@ -126,7 +126,7 @@ public class ExpenseController {
 
         try {
             // check the jwt sent via authorization
-            String jwt = ctx.queryParam("Authorization");
+            String jwt = ctx.header("Authorization");
             DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt); // make sure it is valid
 
             // get the updated expense
@@ -180,7 +180,7 @@ public class ExpenseController {
         // try to decode the the jwt and turn the params into ints
         try {
             // check the jwt sent via authorization
-            String jwt = ctx.queryParam("Authorization");
+            String jwt = ctx.header("Authorization");
             DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
 
             int xid = Integer.parseInt(exId);

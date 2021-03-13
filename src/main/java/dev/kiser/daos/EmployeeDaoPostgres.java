@@ -86,7 +86,8 @@ public class EmployeeDaoPostgres implements EmployeeDaoIF {
             return employee;
 
         } catch (SQLException sqlException) {
-            logger.error("Error in getting employee by username \n\t\t\t\t\t" + sqlException);
+            logger.error("Error in getting employee by username -> " + username + " : " + password +
+                    "\n\t\t\t\t\t" + sqlException);
             return null;
         }
     }
