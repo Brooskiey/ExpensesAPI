@@ -1,6 +1,6 @@
 .emp-container {
     display: grid;
-    overflow: hidden;
+    /* overflow: hidden; */
     grid-template-columns: 0.2fr 1.7fr 1fr 1fr;
     grid-template-rows: 0.1fr 1fr 1.8fr;
     gap: 0px 0px;
