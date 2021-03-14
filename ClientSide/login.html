@@ -23,54 +23,55 @@
                 </div>
 
                 <!-- Login Form -->
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="username">
-                <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-                <input type="submit" class="fadeIn fourth" value="Log In">
-
+                <form action="http://localhost:7000/users/login" id="form" onsubmit="return false;">
+                    <p id="p" style="color:red"></p>
+                    <input class="form-control" type="text" id="username" name="username" placeholder="username" required>
+                    <input class="form-control" type="text" id="password" name="password" placeholder="password" required>
+                    <input id="button" type="submit" value="Log In">
+                </form>
             </div>
         </div>
     </div>
 </body>
 
 <script>
-    const username = document.getElementById("login ");
-    const password = document.getElementById("password ");
-    let id = 0;
+    const handler = async function(event) {
 
+        event.preventDefault();
 
+        try {
+            const form = event.currentTarget;
+            const url = form.action;
 
-    document.getElementById("button ").addEventListener("click ", async function() {
-        console.log("Login ")
-        const login = {
-            "username ": username.value,
-            "password ": password.value
+            const formData = new FormData(form);
+            const plainFormData = Object.fromEntries(formData.entries());
+            const formDataJsonString = JSON.stringify(plainFormData);
 
+            const fetchOptions = {
+                method: "POST",
+                body: formDataJsonString,
+            };
+
+            const response = await fetch(url, fetchOptions);
+
+            if (response.ok) {
+                const jwt = await response.text(); // the jwt
+                localStorage.setItem('jwt', jwt);
+                const token = localStorage.getItem('jwt');
+                const decoded = JSON.parse(atob(token.split('.')[1]));
+                if (decoded.role == "employee") {
+                    window.location.href = "emloyee.html";
+                } else if (decoded.role == "manager") {
+                    window.location.href = "manager.html";
+                }
+            } else {
+                document.getElementById("p").innerHTML = "The username or password was incorrect";
+            }
+        } catch (error) {
+            console.error(error);
         }
-        console.log("details ")
-        const details = {
-            method: 'POST',
-            body: JSON.stringify(login)
-        }
-
-        console.log("Fetch ")
-        const httpResponse = await fetch(`http://localhost:7000/users/login`, details);
-
-        console.log("Status ");
-
-        if (httpResponse.ok) {
-            console.log(400);
-            const jwt = await httpResponse.text(); // the jwt
-            localStorage.setItem('jwt', jwt);
-            window.location.href = "employee.html";
-        } else {
-            alert("Username or password is incorrect ");
-        }
-
-
-        username.value = " ";
-        password.value = " ";
-
-    });
+    }
+    document.getElementById("form").addEventListener('submit', handler);
 </script>
 
 </html>

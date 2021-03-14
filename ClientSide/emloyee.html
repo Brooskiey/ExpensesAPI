@@ -3,7 +3,9 @@
 
 <head>
     <link rel="stylesheet" href="employee.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="Employee.js">
     </script>
 
@@ -33,10 +35,10 @@
                             <h1>Create New Expense</h1>
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">Amount</label>
-                                <input type="amount" class="form-control" id="exampleFormControlInput1" placeholder="300">
+                                <input type="amount" class="form-control" id="exampleFormControlInput1" placeholder="Place amount in dollars here">
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group formContent">
                                 <label for="exampleFormControlTextarea1">Reason for Reimbursement</label>
                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                             </div>
@@ -55,7 +57,7 @@
                     // Get the <span> element that closes the modal
                     var span = document.getElementsByClassName("close")[0];
 
-                    // When the user clicks the button, open the modal 
+                    // When the user clicks the button, open the modal
                     btn.onclick = function() {
                         modal.style.display = "block";
 
@@ -101,48 +103,50 @@
             </script>
         </div>
         <div id="ex " class="Expenses ">
-            <table class="table">
-                <thead>
-                    <th scope="col">ID</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Employee Reason</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Manager Reason</th>
-                    <th scope="col">Submission Date</th>
-                    <th scope="col">Status Date</th>
-                    <th scope="col">Manager</th>
-                </thead>
-                <tbody id="expenseTableBody "></tbody>
-            </table>
-            <script>
-                async function getEmployeehtml() {
-                    const table = document.getElementById("expenseTableBody ")
-                    table.innerHTML = await getEmployee();
+            <div class="pic">
+                <table class="table">
+                    <thead>
+                        <th scope="col">ID</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Employee Reason</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Manager Reason</th>
+                        <th scope="col">Submission Date</th>
+                        <th scope="col">Status Date</th>
+                        <th scope="col">Manager</th>
+                    </thead>
+                    <tbody id="expenseTableBody "></tbody>
+                </table>
+                <script>
+                    async function getEmployeehtml() {
+                        const table = document.getElementById("expenseTableBody ")
+                        table.innerHTML = await getEmployee();
 
-                    //https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sort_table
+                        //https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sort_table
 
-                    var rows, switching, i, x, y, shouldSwitch;
-                    switching = true;
-                    while (switching) {
-                        switching = false;
-                        rows = table.rows;
-                        for (i = 0; i < (rows.length - 1); i++) {
-                            shouldSwitch = false;
-                            x = rows[i].getElementsByTagName("td")[0];
-                            y = rows[i + 1].getElementsByTagName("td")[0];
-                            if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
-                                shouldSwitch = true;
-                                break;
+                        var rows, switching, i, x, y, shouldSwitch;
+                        switching = true;
+                        while (switching) {
+                            switching = false;
+                            rows = table.rows;
+                            for (i = 0; i < (rows.length - 1); i++) {
+                                shouldSwitch = false;
+                                x = rows[i].getElementsByTagName("td")[0];
+                                y = rows[i + 1].getElementsByTagName("td")[0];
+                                if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+                                    shouldSwitch = true;
+                                    break;
+                                }
+                            }
+                            if (shouldSwitch) {
+                                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                switching = true;
                             }
                         }
-                        if (shouldSwitch) {
-                            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                            switching = true;
-                        }
                     }
-                }
-                getEmployeehtml();
-            </script>
+                    getEmployeehtml();
+                </script>
+            </div>
         </div>
         <div id="empName" e class="Employee-name">
             <p>
@@ -150,8 +154,7 @@
                     const token = localStorage.getItem('jwt'); // jwt token;
 
                     const decoded = JSON.parse(atob(token.split('.')[1]));
-                    console.log(decoded.name)
-                    document.getElementById("empName").innerHTML = decoded.empName;
+                    document.getElementById("empName").innerHTML = decoded.empName + "<br />Employee ID: " + decoded.id;
                 </script>
             </p>
         </div>

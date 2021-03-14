@@ -10,6 +10,7 @@ async function getEmployee() {
 
     const decoded = JSON.parse(atob(token.split('.')[1]));
     const id = decoded.id;
+    console.log(typeof id);
 
     const details = {
         headers: {
@@ -17,7 +18,7 @@ async function getEmployee() {
         }
     }
 
-    const httpResponse = await fetch(`http://localhost:7000/expenses?eid=${{id}}`, details);
+    const httpResponse = await fetch(`http://localhost:7000/expenses?eid=` + id, details);
     const body = await httpResponse.json();
 
     let date = "";
@@ -47,3 +48,42 @@ async function getEmployee() {
 async function createExpense() {
     $("#myModal").modal()
 }
+
+
+const handler = async function(event) {
+
+        event.preventDefault();
+
+        const form = event.currentTarget;
+
+        const url = form.action;
+        try {
+
+            const formData = new FormData(form);
+            const plainFormData = Object.fromEntries(formData.entries());
+            const formDataJsonString = JSON.stringify(plainFormData);
+
+            const fetchOptions = {
+                method: "POST",
+                body: formDataJsonString,
+            };
+
+            const response = await fetch(url, fetchOptions);
+
+            if (response.ok) {
+                const jwt = await response.text(); // the jwt
+                localStorage.setItem('jwt', jwt);
+                const token = localStorage.getItem('jwt');
+                const decoded = JSON.parse(atob(token.split('.')[1]));
+                if (decoded.role == "employee") {
+                    window.location.href = "emloyee.html";
+                } else if (decoded.role == "manager") {
+                    window.location.href = "manager.html";
+                }
+            }
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    // document.getElementById("form").addEventListener('submit', handler);

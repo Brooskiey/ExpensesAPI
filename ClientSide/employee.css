@@ -1,8 +1,11 @@
 .emp-container {
     display: grid;
+    overflow: hidden;
     grid-template-columns: 0.2fr 1.7fr 1fr 1fr;
     grid-template-rows: 0.1fr 1fr 1.8fr;
     gap: 0px 0px;
+    min-width: auto;
+    min-height: auto;
     grid-template-areas: "Menu Title Title Employee-name" "Expenses Expenses Expenses Expenses" "Expenses Expenses Expenses Expenses";
 }
 
@@ -13,23 +16,28 @@
 
 .Expenses {
     grid-area: Expenses;
-    padding: 25px 25px 25px 25px;
-    background-image: url("C:\\Users\\brook\\Pictures\\tangled-lantern.jpeg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    min-width: 100%;
     min-height: 100%;
     overflow: hidden;
 }
 
+.pic {
+    padding: 25px 25px 25px 25px;
+    background-image: url("C:\\Users\\brook\\Pictures\\tangled-lantern.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-width: 100vw;
+    min-height: 100vh;
+    background-attachment: fixed;
+}
 
-/* .Expenses::before {
-    position: absolute;
-    top: inherit;
-    left: inherit;
-    right: inherit;
-    bottom: inherit;
-} */
+.sundrop {
+    background-image: url("C:\\Users\\brook\\Documents\\Recipes\\sundrop.jpg");
+    background-repeat: no-repeat;
+    background-size: 350px 100%;
+    min-width: auto;
+    min-height: auto;
+    background-attachment: fixed;
+}
 
 .Employee-name {
     grid-area: Employee-name;
@@ -62,6 +70,7 @@
     background-color: #ffc107;
     display: block;
     transition: 0.3s;
+    background-attachment: fixed;
 }
 
 .sidepanel a:hover {
@@ -177,3 +186,4 @@ tr {
     text-decoration: none;
     cursor: pointer;
 }
+
