@@ -6,10 +6,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
 
-
-    <script src="Manager.js"></script>
-    <script src="Employee.js"></script>
+    <script type="text/javascript" src="Manager.js"></script>
 
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
@@ -17,12 +16,11 @@
     <title>Document</title>
 
     <style type="text/css">
-
         input[type="amount"]:focus {
             border-color: goldenrod;
             box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px goldenrod;
         }
-
+        
         textarea[type="text"]:focus {
             border-color: rgb(194, 84, 194);
             box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgb(194, 84, 194);
@@ -69,21 +67,19 @@
                                 <input type="submit" class="btn btn-primary mr-auto" style="background-color:  rgb(194, 84, 194); align-items: right; border-color:  rgb(194, 84, 194);" value="Save changes">
 
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
-                           </div>
-                           <script>
-                                    const inpt = document.getElementById("empId");
-                                    const token = localStorage.getItem('jwt'); // jwt token;
+                            </div>
+                            <script>
+                                const inpt = document.getElementById("empId");
+                                const token = localStorage.getItem('jwt'); // jwt token;
 
-                                    const decoded = JSON.parse(atob(token.split('.')[1]));
-                                    inpt.value = decoded.id;
+                                const decoded = JSON.parse(atob(token.split('.')[1]));
+                                inpt.value = decoded.id;
 
-                                    document.getElementById("formMan").addEventListener('submit', handlerMan);
-                                </script>
+                                document.getElementById("formMan").addEventListener('submit', handlerMan);
+                            </script>
                         </form>
                     </div>
-
                 </div>
-
                 <script>
                     // Get the modal
                     const modal = document.getElementById("myModal");
@@ -121,6 +117,10 @@
                         if (event.target == modal) {
                             modal.style.display = "none";
                         }
+                    }
+
+                    document.getElementById("myExp").onclick = function() {
+                        getEmployee();
                     }
                 </script>
             </div>
@@ -171,12 +171,12 @@
         <div class="Title ">
             <h2>All Expenses</h2>
         </div>
-
     </div>
-
 </body>
 
 <script>
     getEmployee();
 </script>
+
+
 </html>

@@ -25,7 +25,6 @@ public class LoginController {
      * handler for logging in.
      */
     public Handler loginHandler = (ctx) -> {
-        logger.debug("We have entered the login handler");
 
         String body = ctx.body();
         Gson gson = new Gson();

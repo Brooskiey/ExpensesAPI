@@ -1,189 +1,195 @@
-.emp-container {
-    display: grid;
-    /* overflow: hidden; */
-    grid-template-columns: 0.2fr 1.7fr 1fr 1fr;
-    grid-template-rows: 0.1fr 1fr 1.8fr;
-    gap: 0px 0px;
-    min-width: auto;
-    min-height: auto;
-    grid-template-areas: "Menu Title Title Employee-name" "Expenses Expenses Expenses Expenses" "Expenses Expenses Expenses Expenses";
-}
-
-.Menu {
-    grid-area: Menu;
-    background-color: #ffc107;
-}
-
-.Expenses {
-    grid-area: Expenses;
-    min-height: 100%;
-    overflow: hidden;
-}
-
-.pic {
-    padding: 25px 25px 25px 25px;
-    background-image: url("C:\\Users\\brook\\Pictures\\tangled-lantern.jpeg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    min-width: 100vw;
-    min-height: 100vh;
-    background-attachment: fixed;
-}
-
-.sundrop {
-    background-image: url("C:\\Users\\brook\\Documents\\Recipes\\sundrop.jpg");
-    background-repeat: no-repeat;
-    background-size: 350px 100%;
-    min-width: auto;
-    min-height: auto;
-    background-attachment: fixed;
-}
-
-.Employee-name {
-    grid-area: Employee-name;
-    background-color: #ffc107;
-}
-
-.Title {
-    grid-area: Title;
-    background-color: #ffc107;
-}
-
-.sidepanel {
-    width: 0px;
-    position: fixed;
-    z-index: 1;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: #ffc107;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
-
-.sidepanel a {
-    padding: 8px 8px 8px 8px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #111;
-    background-color: #ffc107;
-    display: block;
-    transition: 0.3s;
-    background-attachment: fixed;
-}
-
-.sidepanel a:hover {
-    color: white;
-    background-color: rgb(194, 84, 194);
-}
-
-.sidepanel .closebtn {
-    position: absolute;
-    top: 0;
-    right: 0px;
-    left: 0px;
-    text-align: right;
-    font-size: 36px;
-}
-
-.openbtn {
-    font-size: 20px;
-    cursor: pointer;
-    background-color: #ffc107;
-    color: black;
-    border: none;
-    position: center;
-    width: 100%;
-    height: 100%;
-}
-
-.openbtn:hover {
-    background-color: rgb(194, 84, 194);
-    width: 100%;
-    height: 100%;
-}
-
-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-tr {
-    background-color: #FFFFFF;
-    opacity: 0.75;
-    color: black;
-}
-
-.openbtnside {
-    font-size: 20px;
-    cursor: pointer;
-    background-color: #ffc107;
-    color: black;
-    border: none;
-    position: center;
-    width: 100%;
-    height: 10%;
-}
-
-.openbtnside:hover {
-    background-color: rgb(194, 84, 194);
-    width: 100%;
-    height: 10%;
-}
-
-
-/* The Modal (background) */
-
-.modal {
-    display: none;
-    /* Hidden by default */
-    position: fixed;
-    /* Stay in place */
-    z-index: 1;
-    /* Sit on top */
-    padding: 50px 30px 50px;
-    /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 75%;
-    /* Full width */
-    height: 100%;
-    /* Full height */
-    overflow: auto;
-    /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0);
-    /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/ opacity */
-}
-
-
-/* Modal Content */
-
-.modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-
-/* The Close Button */
-
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
+        .emp-container {
+            display: grid;
+            /* overflow: hidden; */
+            grid-template-columns: 0.2fr 1.7fr 1fr 1fr;
+            grid-template-rows: 0.1fr 1fr 1.8fr;
+            gap: 0px 0px;
+            min-width: auto;
+            min-height: auto;
+            grid-template-areas: "Menu Title Title Employee-name" "Expenses Expenses Expenses Expenses" "Expenses Expenses Expenses Expenses";
+        }
+        
+        .Menu {
+            grid-area: Menu;
+            background-color: #ffc107;
+        }
+        
+        .Expenses {
+            grid-area: Expenses;
+            min-height: 100%;
+            overflow: hidden;
+        }
+        
+        .pic {
+            padding: 25px 25px 25px 25px;
+            background-image: url("C:\\Users\\brook\\Pictures\\tangled-lantern.jpeg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-width: 100vw;
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+        
+        .sundrop {
+            background-image: url("C:\\Users\\brook\\Documents\\Recipes\\sundrop.jpg");
+            background-repeat: no-repeat;
+            background-size: 350px 100%;
+            min-width: auto;
+            min-height: auto;
+            background-attachment: fixed;
+        }
+        
+        .Employee-name {
+            grid-area: Employee-name;
+            background-color: #ffc107;
+        }
+        
+        .Title {
+            grid-area: Title;
+            background-color: #ffc107;
+        }
+        
+        .sidepanel {
+            width: 0px;
+            position: fixed;
+            z-index: 1;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: #ffc107;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        
+        .sidepanel a {
+            padding: 8px 8px 8px 8px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #111;
+            background-color: #ffc107;
+            display: block;
+            transition: 0.3s;
+            background-attachment: fixed;
+        }
+        
+        .sidepanel a:hover {
+            color: white;
+            background-color: rgb(194, 84, 194);
+        }
+        
+        .sidepanel .closebtn {
+            position: absolute;
+            top: 0;
+            right: 0px;
+            left: 0px;
+            text-align: right;
+            font-size: 36px;
+        }
+        
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #ffc107;
+            color: black;
+            border: none;
+            position: center;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .openbtn:hover {
+            background-color: rgb(194, 84, 194);
+            width: 100%;
+            height: 100%;
+        }
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        tr {
+            background-color: rgb(255, 255, 255, .75);
+            color: black;
+        }
+        
+        .openbtnside {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #ffc107;
+            color: black;
+            border: none;
+            position: center;
+            width: 100%;
+            height: 10%;
+        }
+        
+        .openbtnside:hover {
+            background-color: rgb(194, 84, 194);
+            width: 100%;
+            height: 10%;
+        }
+        /* The Modal (background) */
+        
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding: 50px 30px 50px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 75%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+        /* Modal Content */
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        /* The Close Button */
+        
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .hidden {
+            display: none;
+            visibility: hidden;
+        }
+        
+        .closeU {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .special {}

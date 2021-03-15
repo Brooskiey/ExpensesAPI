@@ -27,7 +27,7 @@ public class App {
         // POST /expenses => create a new expense
         app.post("/expenses", expenseController.createExpense);
 
-        // PUT /expenses/12/employee/2 => update expense 12 for employee 2
+        // PUT /expenses/12/employee/2 => update expense 12 with manager 2
         app.put("/expenses/:xid/manager/:eid", expenseController.updateExpense);
 
         // DELETE /expenses/12/employee/2 => delete expense with 12 for employee 2
