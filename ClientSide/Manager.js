@@ -94,8 +94,6 @@ const handlerMan = async function(event) {
             body: formDataJsonString,
         };
 
-        console.log(url)
-
         const response = await fetch(url, fetchOptions);
 
         if (response.ok) {
@@ -103,7 +101,7 @@ const handlerMan = async function(event) {
             document.getElementById("empReason").value = "";
             document.getElementById("close").onclick();
             document.getElementById("sidebar").onclick();
-            getEmployee();
+            getEmployeeMan();
         } else {
             document.getElementById("p").innerHTML = "Could not be submitted";
         }

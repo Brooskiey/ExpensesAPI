@@ -3,15 +3,14 @@ package dev.kiser.app;
 import dev.kiser.controllers.ExpenseController;
 import dev.kiser.controllers.LoginController;
 import io.javalin.Javalin;
+import io.javalin.core.JavalinConfig;
 
 public class App {
 
     public static void main(String[] args) {
 
         Javalin app = Javalin.create(
-                config -> {
-                    config.enableCorsForAllOrigins();
-                }
+                JavalinConfig::enableCorsForAllOrigins
         );
 
         ExpenseController expenseController = new ExpenseController();

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="employee.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+
+    <script type="text/javascript" src="Manager.js"></script>
+
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Document</title>
+
+    <style type="text/css">
+        select[type="select"]:focus,
+        input[type="amount"]:focus {
+            border-color: goldenrod;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px goldenrod;
+        }
+        
+        textarea[type="text"]:focus {
+            border-color: rgb(194, 84, 194);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgb(194, 84, 194);
+        }
+        
+        .btn:hover,
+        .btn:focus {
+            background-color: rgb(119, 50, 119);
+            border-color: rgb(119, 50, 119);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgb(119, 50, 119);
+        }
+        
+        .btn-primary {
+            background-color: rgb(194, 84, 194);
+            border-color: rgb(194, 84, 194);
+        }
+        
+        .btn-disable,
+        .btn-disable:hover {
+            background-color: rgb(119, 50, 119);
+            border-color: rgb(119, 50, 119);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="emp-container">
+        <div id="ex " class="Expenses">
+            <div class="pic ">
+                <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                    <input type="btn" class="btn btn-disable" value="Sort By" readonly>
+                    <input type="btn" class="btn btn-primary" value="Pending" style="width:160px;" readonly>
+                    <input type="btn " class="btn btn-primary " value="Approved" style="width:160px;" readonly>
+                    <input type="btn " class="btn btn-primary " value="Denied" style="width:160px;" readonly>
+                    <input type="btn " class="btn btn-primary" value="Employee ID" style="width:160px;" readonly>
+                    <input type="btn " class="btn btn-primary" value="Expense ID" style="width:160px;" readonly>
+                    <input type="btn " class="btn btn-primary " value="Amount" style="width:160px;" readonly>
+                    <input type="btn " class="btn btn-primary" value="Status Date" style="width:160px;" readonly>
+                </div>
+                <table id="table" class="table ">
+                    <thead style="text-align: center;" id="thead">
+                        <th class="th-sm " scope="col ">ID</th>
+                        <th class="th-sm " scope="col ">Employee ID</th>
+                        <th class="th-sm " scope="col ">Amount</th>
+                        <th class="th-sm " scope="col ">Employee Reason</th>
+                        <th class="th-sm " scope="col ">Status</th>
+                        <th class="th-sm " scope="col ">Manager Reason</th>
+                        <th class="th-sm " scope="col ">Submission Date</th>
+                        <th class="th-sm " scope="col ">Status Date</th>
+                        <th class="th-sm " scope="col ">Manager</th>
+                    </thead>
+                    <tbody id="expenseTableBody "></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="Menu">
+
+            <div id="mySidepanel" class="sidepanel sundrop">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" id="sidebar">×</a>
+
+                <!-- Trigger/Open The Modal -->
+                <button id="myBtn" class="openbtnside">Create Expense</button>
+                <button id="aExp" class="openbtnside">All Expenses</button>
+                <button id="myExp" class="openbtnside">My Expenses</button>
+                <button id="stats" class="openbtnside">Statistics</button>
+                <button id="app" class="openbtnside">Approve/Deny</button>
+
+                <!-- The Modal -->
+                <div id="myModal" class="modal overflow-auto">
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <form id="formMan" action="http://localhost:7000/expenses">
+                            <h1>Create New Expense</h1>
+                            <p id="p" style="color:red"></p>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Employee ID</label>
+                                <input type="amount" class="form-control" id="empId" placeholder="" id="empId" name="empId" readonly>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Amount</label>
+                                <input type="amount" class="form-control" id="amount" placeholder="Place amount here" id="amount" name="amount" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1 ">Reason for Reimbursement</label>
+                                <textarea type="text" class="form-control" id="empReason" rows="3" name="empReason" required></textarea>
+                            </div>
+
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-primary mr-auto" style="background-color:  rgb(194, 84, 194); align-items: right; border-color:  rgb(194, 84, 194);" value="Save changes">
+
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
+                            </div>
+                            <script>
+                                const inpt = document.getElementById("empId");
+                                const token = localStorage.getItem('jwt'); // jwt token;
+
+                                const decoded = JSON.parse(atob(token.split('.')[1]));
+                                inpt.value = decoded.id;
+
+                                document.getElementById("formMan").addEventListener('submit', handlerMan);
+                            </script>
+                        </form>
+                    </div>
+
+                </div>
+                <script>
+                    // Get the modal
+                    const modal = document.getElementById("myModal");
+
+
+                    // Get the button that opens the modal
+                    const btn = document.getElementById("myBtn");
+
+                    // Get the <span> element that closes the modal
+                    const span = document.getElementsByClassName("close")[0];
+
+                    const close = document.getElementById("close");
+
+                    // When the user clicks the button, open the modal
+                    btn.onclick = function() {
+                        modal.style.display = "block";
+
+                    }
+
+                    // When the user clicks on <span> (x), close the modal
+                    span.onclick = function() {
+                        modal.style.display = "none";
+                    }
+
+                    // When the user clicks on <span> (x), close the modal
+                    close.onclick = function() {
+                        modal.style.display = "none";
+                    }
+
+                    // When the user clicks anywhere outside of the modal, close it
+                    window.onclick = function(event) {
+                        modal.modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        })
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                        }
+                    }
+                </script>
+
+                <div id="appModal" class="modal overflow-auto">
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span class="closeU">&times;</span>
+                        <form id="formManU" action="http://localhost:7000/expenses/:xid/manager/:eid">
+                            <p id="p" style="color:red"></p>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Manager</label> ID</label>
+                                <input type="amount" class="form-control" id="manId" placeholder="" name="managerId" readonly>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Expense ID</label>
+                                <input type="amount" class="form-control" id="exId" placeholder="" name="expenseId" readonly>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Employee ID</label>
+                                <input type="amount" class="form-control" id="empIdU" placeholder="" name="empId" readonly>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Amount</label>
+                                <input type="amount" class="form-control" id="amountU" placeholder="" name="amount" readonly>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Employee Reason</label>
+                                <input type="amount" class="form-control" id="empr" placeholder="" name="empReason" readonly>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Approve/Deny</label>
+                                <select type="select" class="form-control" id="empReason" name="status">
+                                  <option>approved</option>
+                                  <option>denied</option>
+                                </select>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="exampleFormControlInput1">Approve/Deny</label>
+                                <input type="amount" class="form-control" id="approve" placeholder="Place amount here" name="status" required>
+                            </div> -->
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1 ">Manager Reason (Optional)</label>
+                                <textarea type="text" class="form-control" id="manReason" rows="3" name="managerReason"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-primary mr-auto" style="background-color:  rgb(194, 84, 194); align-items: right; border-color:  rgb(194, 84, 194);" value="Save changes">
+
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeU">Close</button>
+                            </div>
+                            <script>
+                                document.getElementById("formMan").addEventListener('submit', handlerMan);
+                            </script>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center"><button class="openbtn" onclick="openNav()">
+                <svg xmlns="http://www.w3.org/2000/svg " width="25 " height="55 " fill="currentColor " class="bi bi-menu-up " viewBox="0 0 16 16 ">
+                <path d="M7.646 15.854a.5.5 0 0 0 .708 0L10.207 14H14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3.793l1.853 1.854zM1 9V6h14v3H1zm14 1v2a1 1 0 0 1-1 1h-3.793a1 1 0 0 0-.707.293l-1.5 1.5-1.5-1.5A1 1 0 0 0 5.793 13H2a1
+                1 0 0 1-1-1v-2h14zm0-5H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2zM2 11.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 0-1h-8a.5.5 0 0 0-.5.5zm0-4a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11a.5.5 0 0 0-.5.5zm0-4a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 0-1h-6a.5.5 0 0 0-.5.5z "
+                />
+                </svg>
+            </button>
+            </div>
+
+            <script>
+                function openNav() {
+                    document.getElementById("mySidepanel").style.width = "250px";
+                }
+
+                function closeNav() {
+                    document.getElementById("mySidepanel").style.width = "0";
+                }
+            </script>
+        </div>
+
+        <div id="empName" class="Employee-name">
+            <script>
+                document.getElementById("empName").innerHTML = decoded.empName + "<br />Employee ID: " + decoded.id;
+            </script>
+        </div>
+        <div class="Title " id="Title">
+            <h2>All Expenses</h2>
+        </div>
+    </div>
+    <script>
+        getEmployeeMan();
+
+        document.getElementById("myExp").addEventListener('click', async function() {
+            document.getElementById("close").onclick();
+            document.getElementById("sidebar").onclick();
+            document.getElementById("Title").innerHTML = `<h2>My Expenses</h2>`;
+            getEmployee();
+        });
+
+        document.getElementById("aExp").addEventListener('click', async function() {
+            document.getElementById("close").onclick();
+            document.getElementById("sidebar").onclick();
+            document.getElementById("Title").innerHTML = `<h2>All Expenses</h2>`;
+            getEmployeeMan();
+        });
+
+        document.getElementById("app").addEventListener('click', async function() {
+            document.getElementById("close").onclick();
+            document.getElementById("sidebar").onclick();
+            document.getElementById("Title").innerHTML = `<h2>Approve/Deny Expenses</h2>`;
+            update();
+        });
+    </script>
+</body>
+
+
+
+</html>

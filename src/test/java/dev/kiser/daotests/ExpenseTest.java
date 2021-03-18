@@ -38,7 +38,7 @@ public class ExpenseTest {
 
     @Test
     void get_expense_by_id() {
-        int empId = 2;
+        int empId = 3;
         int xId = 8;
 
         Expense expense = xdao.getExpenseById(empId, xId);
@@ -56,8 +56,8 @@ public class ExpenseTest {
 
     @Test
     void get_expense_by_status() {
-        String status = "Pending";
-        int empId = 2;
+        String status = "pending";
+        int empId = 3;
 
         Set<Expense> expense = xdao.getExpensesByStatus(empId, status);
 
@@ -69,7 +69,7 @@ public class ExpenseTest {
 
     @Test
     void get_all_expense_by_status() {
-        String status = "Pending";
+        String status = "pending";
         Set<Expense> expense = xdao.getExpensesByStatus(status);
 
         System.out.println("\nget_all_expenses_by_status: assertNotEquals" +
@@ -80,7 +80,7 @@ public class ExpenseTest {
 
     @Test
     void get_expense_by_employee() {
-        int empId = 3;
+        int empId = 7;
         Set<Expense> expense = xdao.getExpenseByEmployee(empId);
 
         System.out.println("\nget_expense_by_employee: assertNotEquals" +
@@ -91,9 +91,9 @@ public class ExpenseTest {
 
     @Test
     void update_expense() {
-        Expense expense = new Expense("Approved", 15, "Go with Potato. Go see your sister and Auntie BB.",
+        Expense expense = new Expense("Approved", 14, "Go with Potato. Go see your sister and Auntie BB.",
                 "I need a plane ticket home",
-                3, 1500, null, null, 0);
+                3, 1500, null, null, 2);
         int manId = 2;
 
         expense = xdao.updateExpense(manId, expense);
@@ -106,7 +106,7 @@ public class ExpenseTest {
 
     @Test
     void delete_expense() {
-        int expenseId = 13;
+        int expenseId = 2;
         int employeeId = 3;
 
         boolean result = xdao.deleteExpense(employeeId, expenseId);

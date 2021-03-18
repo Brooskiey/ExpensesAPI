@@ -22,7 +22,7 @@
         
         .pic {
             padding: 25px 25px 25px 25px;
-            background-image: url("C:\\Users\\brook\\Pictures\\tangled-lantern.jpeg");
+            background-image: url("tangled-lantern.jpeg");
             background-repeat: no-repeat;
             background-size: cover;
             min-width: 100vw;
@@ -31,7 +31,7 @@
         }
         
         .sundrop {
-            background-image: url("C:\\Users\\brook\\Documents\\Recipes\\sundrop.jpg");
+            background-image: url("sundrop.jpg");
             background-repeat: no-repeat;
             background-size: 350px 100%;
             min-width: auto;
@@ -191,5 +191,3 @@
             font-size: 28px;
             font-weight: bold;
         }
-        
-        .special {}

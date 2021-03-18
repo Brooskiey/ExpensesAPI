@@ -29,8 +29,8 @@ const getEmployee = async function() {
         } else {
             date = expense.statusDate;
         }
-        
-        if(expense.managerId == 0){
+
+        if (expense.managerId == 0) {
             manager = "";
         } else {
             manager = expense.managerId;
@@ -47,7 +47,7 @@ const getEmployee = async function() {
         <td style="width:5px; word-break:break-all; text-align: center;"> ${manager}</td>`;
 
     }
-    
+
     table.innerHTML = listHtml;
     //https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sort_table
 

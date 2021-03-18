@@ -36,9 +36,10 @@ public class ExpenseService implements ExpenseServiceIF {
     @Override
     public Expense registerExpense(int empId, Expense expense)
             throws EmployeeNotFoundException, OperationNotPossible, ExpenseException {
-
         // make sure the values are appropriate
         if (expense.getAmount() == 0 || expense.getEmpReason().equals("") || expense.getEmpReason() == null) {
+            System.out.println("here");
+
             throw new OperationNotPossible("Fields must be correct");
         }
         //make sure the employee exists
@@ -51,6 +52,7 @@ public class ExpenseService implements ExpenseServiceIF {
         expense.setManagerReason("");
         // create the expense
         Expense newExpense = xdao.createExpense(empId, expense);
+
         // make sure the dao ran appropriately
         if (newExpense == null) {
             throw new ExpenseException("Error creating expense");
